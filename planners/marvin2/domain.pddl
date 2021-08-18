@@ -1,0 +1,25 @@
+(define (domain GROCERYLIST)
+  (:requirements :strips)
+  (:predicates (bought ?x)
+	       (isHome ?x)
+	       (isShop ?x)
+	       (isProduct ?x)
+	       (AgentLocation ?x)
+	       (ProductShop ?x ?y)
+	       )
+
+  (:action buy
+	     :parameters (?x ?y)
+	     :precondition (and (isShop ?x) (isProduct ?y) (ProductShop ?x ?y) (AgentLocation ?x))
+	     :effect (bought ?y)
+  )
+
+  (:action go
+	     :parameters (?x ?y)
+	     :precondition (and (or (isShop ?x) (isHome ?x))
+	                        (or (isShop ?y) (isHome ?y))
+	                        (AgentLocation ?x))
+	     :effect (and (not (AgentLocation ?x))
+		                   (AgentLocation ?y))
+  )
+)

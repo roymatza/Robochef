@@ -1,0 +1,8 @@
+#RoboChef -  Temporal Planning in a Kitchen Environment#
+
+##What is RoboChef?##
+RoboChef project takes advantage of AI techniques and the *AI2Thor* simulation environement with the aim of simply and efficiently execute a task in the kitchen by planning in advance. The robot's main task is to move around different kinds of foods and tools, interact with them in the manner of cooking, toggling, cleaning etc., and possiblly serve them, all of this given a specific definition of the durations (whether by a fixed number or a range) of all of the involved actions.
+
+##Progress##
+###Step 1: Modelling Kitchen Environment###
+Following a model-based approach, our agent is given a model that includes object, predicates, and possible actions in the world, written in PDDL language. As a start, athe agent was given a fully observable  environment (without time constraints) with the task of making a 'simple breakfast', meaning cooking eggs and making coffee, and serve them onto a table. 

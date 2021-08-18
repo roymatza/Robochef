@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<!-- #set var="headImage"     value="/mall11/images/header-overlay-idalogo.png" -->
+<!-- #set var="courseHomePageHeading2" value="For $courseProgrammes ($coursePeriod)" -->
+<!-- #set var="pageCSS"                value="/edu/ugrad/include/cindex.css" -->
+<!-- NOTE: Remove the space before '#' to activate the third column variable col3. -->
+<!-- #set var="col3" value="/~!COURSE_CODE!/!PATH!/!PAGE!-col3.en.shtml" -->
+<html lang="en"><!-- LiU-mall --><head><script type="text/javascript" async="" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/analytics.js"></script><script type="text/javascript" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/300lo.js"></script><script type="text/javascript" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/_ate.js"></script><script type="text/javascript" async="" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/ga.js"></script><script type="text/javascript" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/moatframe.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <meta content="IE=EDGE" http-equiv="X-UA-Compatible">
+    <title>TDDC17 &gt; Writing Planning Domains and Problems
+in PDDL</title>
+    <link rel="shortcut icon" href="https://www.ida.liu.se/favicon.ico">
+    <link rel="apple-touch-icon" href="https://www.ida.liu.se/apple-touch-icon-114x114.png">
+
+    <meta name="dcterms.title" content="TDDC17 &gt; Writing Planning Domains and Problems
+in PDDL">
+    <meta name="dcterms.creator" content="Patrick Doherty">
+    <meta name="dcterms.format" content="text/html">
+    <meta name="dcterms.language" content="en">
+    <meta name="dcterms.publisher" content="Linköping University">
+    <meta name="dcterms.date" content="2019-09-26">
+    <meta name="dcterms.modified" content="2019-09-26">
+
+
+    <meta name="viewport" id="viewport" content="width=device-width, user-scalable=yes,initial-scale=1.0">
+
+    <link rel="stylesheet" href="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/content.css" type="text/css">
+    <link rel="stylesheet" href="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/screen.css" media="screen" type="text/css">
+    <!--[if IE 6]><link rel="stylesheet" href="https://www.ida.liu.se/mall11/css/ie6.css" media="screen" type="text/css"/><![endif]-->
+    <link rel="stylesheet" href="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/print.css" media="print" type="text/css">
+    <link rel="stylesheet" href="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/mobile.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/ida.css">
+
+    <link rel="alternate" href="http://www.liu.se/liu-nytt/arkiv/nyhetsarkiv?l=sv&amp;format=rss" type="application/rss+xml" title="LiU-nytt">
+    <link rel="alternate" href="http://www.liu.se/liu-nytt/arkiv/nyhetsarkiv?l=en&amp;format=rss" type="application/rss+xml" title="LiU-news">
+    <link rel="alternate" href="http://www.liu.se/liu-nytt/pressmed/arkiv?format=rss" type="application/rss+xml" title="Pressmeddelanden">
+    <link rel="alternate" href="http://www.liu.se/rss/liu-jobs-sv.rss" type="application/rss+xml" title="Lediga jobb">
+    <link rel="alternate" href="http://www.liu.se/rss/liu-jobs-en.rss" type="application/rss+xml" title="Vacancies">
+
+    <script async="" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/gtm.js"></script><script type="text/javascript" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/jquery.js"></script>
+    <script type="text/javascript" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/jquery_002.js"></script>
+    <script type="text/javascript" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/mobile.js"></script>
+
+  <style type="text/css">.at-icon{fill:#fff;border:0}.at-icon-wrapper{display:inline-block;overflow:hidden}a .at-icon-wrapper{cursor:pointer}.at-rounded,.at-rounded-element .at-icon-wrapper{border-radius:12%}.at-circular,.at-circular-element .at-icon-wrapper{border-radius:50%}.addthis_32x32_style .at-icon{width:2pc;height:2pc}.addthis_24x24_style .at-icon{width:24px;height:24px}.addthis_20x20_style .at-icon{width:20px;height:20px}.addthis_16x16_style .at-icon{width:1pc;height:1pc}#at16lb{display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:1001;background-color:#000;opacity:.001}#at_complete,#at_error,#at_share,#at_success{position:static!important}.at15dn{display:none}#at15s,#at16p,#at16p form input,#at16p label,#at16p textarea,#at_share .at_item{font-family:arial,helvetica,tahoma,verdana,sans-serif!important;font-size:9pt!important;outline-style:none;outline-width:0;line-height:1em}* html #at15s.mmborder{position:absolute!important}#at15s.mmborder{position:fixed!important;width:250px!important}#at15s{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);float:none;line-height:1em;margin:0;overflow:visible;padding:5px;text-align:left;position:absolute}#at15s a,#at15s span{outline:0;direction:ltr;text-transform:none}#at15s .at-label{margin-left:5px}#at15s .at-icon-wrapper{width:1pc;height:1pc;vertical-align:middle}#at15s .at-icon{width:1pc;height:1pc}.at4-icon{display:inline-block;background-repeat:no-repeat;background-position:top left;margin:0;overflow:hidden;cursor:pointer}.addthis_16x16_style .at4-icon,.addthis_default_style .at4-icon,.at4-icon,.at-16x16{width:1pc;height:1pc;line-height:1pc;background-size:1pc!important}.addthis_32x32_style .at4-icon,.at-32x32{width:2pc;height:2pc;line-height:2pc;background-size:2pc!important}.addthis_24x24_style .at4-icon,.at-24x24{width:24px;height:24px;line-height:24px;background-size:24px!important}.addthis_20x20_style .at4-icon,.at-20x20{width:20px;height:20px;line-height:20px;background-size:20px!important}.at4-icon.circular,.circular .at4-icon,.circular.aticon{border-radius:50%}.at4-icon.rounded,.rounded .at4-icon{border-radius:4px}.at4-icon-left{float:left}#at15s .at4-icon{text-indent:20px;padding:0;overflow:visible;white-space:nowrap;background-size:1pc;width:1pc;height:1pc;background-position:top left;display:inline-block;line-height:1pc}.addthis_vertical_style .at4-icon,.at4-follow-container .at4-icon{margin-right:5px}html>body #at15s{width:250px!important}#at15s.atm{background:none!important;padding:0!important;width:10pc!important}#at15s_inner{background:#fff;border:1px solid #fff;margin:0}#at15s_head{position:relative;background:#f2f2f2;padding:4px;cursor:default;border-bottom:1px solid #e5e5e5}.at15s_head_success{background:#cafd99!important;border-bottom:1px solid #a9d582!important}.at15s_head_success a,.at15s_head_success span{color:#000!important;text-decoration:none}#at15s_brand,#at15sptx,#at16_brand{position:absolute}#at15s_brand{top:4px;right:4px}.at15s_brandx{right:20px!important}a#at15sptx{top:4px;right:4px;text-decoration:none;color:#4c4c4c;font-weight:700}#at15sptx:hover{text-decoration:underline}#at16_brand{top:5px;right:30px;cursor:default}#at_hover{padding:4px}#at_hover .at_item,#at_share .at_item{background:#fff!important;float:left!important;color:#4c4c4c!important}#at_share .at_item .at-icon-wrapper{margin-right:5px}#at_hover .at_bold{font-weight:700;color:#000!important}#at_hover .at_item{width:7pc!important;padding:2px 3px!important;margin:1px;text-decoration:none!important}#at_hover .at_item.athov,#at_hover .at_item:focus,#at_hover .at_item:hover{margin:0!important}#at_hover .at_item.athov,#at_hover .at_item:focus,#at_hover .at_item:hover,#at_share .at_item.athov,#at_share .at_item:hover{background:#f2f2f2!important;border:1px solid #e5e5e5;color:#000!important;text-decoration:none}.ipad #at_hover .at_item:focus{background:#fff!important;border:1px solid #fff}.at15t{display:block!important;height:1pc!important;line-height:1pc!important;padding-left:20px!important;background-position:0 0;text-align:left}.addthis_button,.at15t{cursor:pointer}.addthis_toolbox a.at300b,.addthis_toolbox a.at300m{width:auto}.addthis_toolbox a{margin-bottom:5px;line-height:initial}.addthis_toolbox.addthis_vertical_style{width:200px}.addthis_button_facebook_like .fb_iframe_widget{line-height:100%}.addthis_button_facebook_like iframe.fb_iframe_widget_lift{max-width:none}.addthis_toolbox a.addthis_button_counter,.addthis_toolbox a.addthis_button_facebook_like,.addthis_toolbox a.addthis_button_facebook_send,.addthis_toolbox a.addthis_button_facebook_share,.addthis_toolbox a.addthis_button_foursquare,.addthis_toolbox a.addthis_button_linkedin_counter,.addthis_toolbox a.addthis_button_pinterest_pinit,.addthis_toolbox a.addthis_button_tweet{display:inline-block}.addthis_toolbox span.addthis_follow_label{display:none}.addthis_toolbox.addthis_vertical_style span.addthis_follow_label{display:block;white-space:nowrap}.addthis_toolbox.addthis_vertical_style a{display:block}.addthis_toolbox.addthis_vertical_style.addthis_32x32_style a{line-height:2pc;height:2pc}.addthis_toolbox.addthis_vertical_style .at300bs{margin-right:4px;float:left}.addthis_toolbox.addthis_20x20_style span{line-height:20px}.addthis_toolbox.addthis_32x32_style span{line-height:2pc}.addthis_toolbox.addthis_pill_combo_style .addthis_button_compact .at15t_compact,.addthis_toolbox.addthis_pill_combo_style a{float:left}.addthis_toolbox.addthis_pill_combo_style a.addthis_button_tweet{margin-top:-2px}.addthis_toolbox.addthis_pill_combo_style .addthis_button_compact .at15t_compact{margin-right:4px}.addthis_default_style .addthis_separator{margin:0 5px;display:inline}div.atclear{clear:both}.addthis_default_style .addthis_separator,.addthis_default_style .at4-icon,.addthis_default_style .at300b,.addthis_default_style .at300bo,.addthis_default_style .at300bs,.addthis_default_style .at300m{float:left}.at300b img,.at300bo img{border:0}a.at300b .at4-icon,a.at300m .at4-icon{display:block}.addthis_default_style .at300b,.addthis_default_style .at300bo,.addthis_default_style .at300m{padding:0 2px}.at300b,.at300bo,.at300bs,.at300m{cursor:pointer}.addthis_button_facebook_like.at300b:hover,.addthis_button_facebook_like.at300bs:hover,.addthis_button_facebook_send.at300b:hover,.addthis_button_facebook_send.at300bs:hover{opacity:1}.addthis_20x20_style .at15t,.addthis_20x20_style .at300bs{overflow:hidden;display:block;height:20px!important;width:20px!important;line-height:20px!important}.addthis_32x32_style .at15t,.addthis_32x32_style .at300bs{overflow:hidden;display:block;height:2pc!important;width:2pc!important;line-height:2pc!important}.at300bs{overflow:hidden;display:block;background-position:0 0;height:1pc;width:1pc;line-height:1pc!important}.addthis_default_style .at15t_compact,.addthis_default_style .at15t_expanded{margin-right:4px}#at_share .at_item{width:123px!important;padding:4px;margin-right:2px;border:1px solid #fff}#at16p{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);z-index:10000001;position:absolute;top:50%;left:50%;width:300px;padding:10px;margin:0 auto;margin-top:-185px;margin-left:-155px;font-family:arial,helvetica,tahoma,verdana,sans-serif;font-size:9pt;color:#5e5e5e}#at_share{margin:0;padding:0}#at16pt{position:relative;background:#f2f2f2;height:13px;padding:5px 10px}#at16pt a,#at16pt h4{font-weight:700}#at16pt h4{display:inline;margin:0;padding:0;font-size:9pt;color:#4c4c4c;cursor:default}#at16pt a{position:absolute;top:5px;right:10px;color:#4c4c4c;text-decoration:none;padding:2px}#at15sptx:focus,#at16pt a:focus{outline:thin dotted}#at15s #at16pf a{top:1px}#_atssh{width:1px!important;height:1px!important;border:0!important}.atm{width:10pc!important;padding:0;margin:0;line-height:9pt;letter-spacing:normal;font-family:arial,helvetica,tahoma,verdana,sans-serif;font-size:9pt;color:#444;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);padding:4px}.atm-f{text-align:right;border-top:1px solid #ddd;padding:5px 8px}.atm-i{background:#fff;border:1px solid #d5d6d6;padding:0;margin:0;box-shadow:1px 1px 5px rgba(0,0,0,.15)}.atm-s{margin:0!important;padding:0!important}.atm-s a:focus{border:transparent;outline:0;transition:none}#at_hover.atm-s a,.atm-s a{display:block;text-decoration:none;padding:4px 10px;color:#235dab!important;font-weight:400;font-style:normal;transition:none}#at_hover.atm-s .at_bold{color:#235dab!important}#at_hover.atm-s a:hover,.atm-s a:hover{background:#2095f0;text-decoration:none;color:#fff!important}#at_hover.atm-s .at_bold{font-weight:700}#at_hover.atm-s a:hover .at_bold{color:#fff!important}.atm-s a .at-label{vertical-align:middle;margin-left:5px;direction:ltr}.at_PinItButton{display:block;width:40px;height:20px;padding:0;margin:0;background-image:url(//s7.addthis.com/static/t00/pinit00.png);background-repeat:no-repeat}.at_PinItButton:hover{background-position:0 -20px}.addthis_toolbox .addthis_button_pinterest_pinit{position:relative}.at-share-tbx-element .fb_iframe_widget span{vertical-align:baseline!important}#at16pf{height:auto;text-align:right;padding:4px 8px}.at-privacy-info{position:absolute;left:7px;bottom:7px;cursor:pointer;text-decoration:none;font-family:helvetica,arial,sans-serif;font-size:10px;line-height:9pt;letter-spacing:.2px;color:#666}.at-privacy-info:hover{color:#000}.body .wsb-social-share .wsb-social-share-button-vert{padding-top:0;padding-bottom:0}.body .wsb-social-share.addthis_counter_style .addthis_button_tweet.wsb-social-share-button{padding-top:40px}.body .wsb-social-share.addthis_counter_style .addthis_button_facebook_like.wsb-social-share-button{padding-top:21px}@media print{#at4-follow,#at4-share,#at4-thankyou,#at4-whatsnext,#at4m-mobile,#at15s,.at4,.at4-recommended{display:none!important}}@media screen and (max-width:400px){.at4win{width:100%}}@media screen and (max-height:700px) and (max-width:400px){.at4-thankyou-inner .at4-recommended-container{height:122px;overflow:hidden}.at4-thankyou-inner .at4-recommended .at4-recommended-item:first-child{border-bottom:1px solid #c5c5c5}}</style><style type="text/css">.at-branding-logo{font-family:helvetica,arial,sans-serif;text-decoration:none;font-size:10px;display:inline-block;margin:2px 0;letter-spacing:.2px}.at-branding-logo .at-branding-icon{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////+GlNUkcc1QAAAB1JREFUeNpiYIQDBjQmAwMmkwEM0JnY1WIxFyDAABGeAFEudiZsAAAAAElFTkSuQmCC")}.at-branding-logo .at-branding-icon,.at-branding-logo .at-privacy-icon{display:inline-block;height:10px;width:10px;margin-left:4px;margin-right:3px;margin-bottom:-1px;background-repeat:no-repeat}.at-branding-logo .at-privacy-icon{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAKCAMAAABR24SMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhQTFRF8fr9ot/xXcfn2/P5AKva////////AKTWodjhjAAAAAd0Uk5T////////ABpLA0YAAAA6SURBVHjaJMzBDQAwCAJAQaj7b9xifV0kUKJ9ciWxlzWEWI5gMF65KUTv0VKkjVeTerqE/x7+9BVgAEXbAWI8QDcfAAAAAElFTkSuQmCC")}.at-branding-logo span{text-decoration:none}.at-branding-logo .at-branding-addthis,.at-branding-logo .at-branding-powered-by{color:#666}.at-branding-logo .at-branding-addthis:hover{color:#333}.at-cv-with-image .at-branding-addthis,.at-cv-with-image .at-branding-addthis:hover{color:#fff}a.at-branding-logo:visited{color:initial}.at-branding-info{display:inline-block;padding:0 5px;color:#666;border:1px solid #666;border-radius:50%;font-size:10px;line-height:9pt;opacity:.7;transition:all .3s ease;text-decoration:none}.at-branding-info span{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.at-branding-info:before{content:'i';font-family:Times New Roman}.at-branding-info:hover{color:#0780df;border-color:#0780df}</style></head>
+  <body class="full">
+
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M3QRGB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-M3QRGB');</script>
+  <!-- End Google Tag Manager -->
+
+    <div id="head" style="visibility: visible;">
+      
+      <div id="head-top">&nbsp;</div>
+      <div id="head-content"><div class="head-width-limit">
+        <div id="head-lang">
+	  <a title="Swedish web site" href="https://www.ida.liu.se/index.sv.shtml"><img src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/flag-sv.png" alt="" width="17" height="10">Swedish web site</a>
+	</div>
+        <div id="head-search">
+          <form action="https://www.ida.liu.se//bin/search_redirect.pl" method="post">
+	    <p>
+	      <input id="search-string" accesskey="4" name="q" size="12" title="Enter search string" placeholder="Search">
+	      <select id="search-source" name="site" title="Select search area">
+	        
+		<option value="ida" selected="selected">Search IDA.LiU.se</option>
+		<option value="idaempl">Find IDA employee</option>
+		<option value="idamap">Find IDA room</option>
+		<option value="liu">Search LiU.se</option>
+		<option value="liuempl">Find LiU employee</option>
+	      </select>
+              <input type="hidden" name="hl" value="en">
+	      <input id="search-submit" type="submit" value="Search" title="Search">
+	    </p>
+	  </form>
+          <div id="search-other">
+<!--
+	    <a href="http://www.liu.se/search/sitemap?l=en" accesskey="3">Site map</a> |
+-->
+            <a href="https://www.ida.liu.se/A-Z/index.en.shtml">A — Z</a>
+          </div>
+        </div>
+        <div id="logo">
+          <a href="http://www.liu.se/?l=sv" accesskey="1">
+          
+          <img class="screen" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/logo-en.png" alt="Logotyp">
+          
+          <img class="handheld" alt="Sigill" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/sigill.png" width="0" height="0">
+          </a>
+          <img class="print" alt="Logotyp" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/logo-print-en.png" width="0" height="0">
+        </div>
+        <div id="head-text"><h1>IDA - Department of Computer and Information Science</h1></div>
+      </div></div>
+      <div id="head-bottom">
+        <div id="navbar">
+	  <a href="http://www.liu.se/?l=en">LiU</a> &#9654; <a href="https://www.ida.liu.se/index.en.shtml">IDA</a> &#9654; <a href="https://www.ida.liu.se/edu/ugrad/index.en.shtml">Undergraduate</a> &#9654; <a href="https://www.ida.liu.se/edu/ugrad/courses/index.en.shtml">Courses</a><!-- Cannot open navbar data file: /home/TDDC17/www-pub/include/navbar.en.dat -->
+<a href="https://www.ida.liu.se/">   </a> &#9654; 
+<a href="https://www.ida.liu.se/~TDDC17/"> TDDC17 </a> &#9654; 
+<a href="https://www.ida.liu.se/~TDDC17/info/"> Info </a> &#9654; 
+<a href="https://www.ida.liu.se/~TDDC17/info/labs/"> Labs </a> &#9654; 
+<a href="https://www.ida.liu.se/~TDDC17/info/labs/planning/"> Planning </a> &#9654; 
+ TDDC17-PDDL
+	</div>
+	<div id="page-lang">
+           
+	</div>
+	<div id="head-bottom-end"></div>
+      </div>
+    </div>
+    <div id="middle" style="visibility: visible;">
+
+      <div class="handheld" id="hidemenu" onmouseover="">Hide menu</div>
+      <div id="menu">
+        <div class="handheld" id="showmenu" onmouseover="">Display menu</div>
+        <ul>
+  
+  <li class="menu_heading_first"><a href="https://www.ida.liu.se/~TDDC17/index.en.shtml">TDDC17 (2020)</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/info/courseinfo.en.shtml">Course Information</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/info/syllabus.en.shtml">Syllabus</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/info/seminars.en.shtml">Seminars</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/info/labs.en.shtml">Labs</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/info/literature.en.shtml">Literature</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/exam/index.en.shtml">Examination</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/timetable/index.en.shtml">Timetable</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/info/messages.en.shtml">All Messages</a></li>
+  <li><a href="https://www.ida.liu.se/~TDDC17/contact/index.en.shtml">Contact</a></li>
+
+  
+  
+  
+  
+  
+  
+  <li class="empty">&nbsp;</li>
+<li class="menu_heading">Internal</li>
+  <li><a href="https://www.ida.liu.se/local/ida/index.en.shtml">IDA internal</a></li>
+  <li><a href="https://www.ida.liu.se/students/index.en.shtml">Student Pages</a></li>
+  <li><a href="https://www.ida.liu.se/department/emergency/index.en.shtml">Emergency</a></li>
+
+  
+        </ul>
+      </div>
+      <div id="content">
+
+	<div class="text">
+
+<!-- CONTENT -->
+
+
+<style type="text/css">
+  PRE {
+  line-height: 140%;
+  background-color: rgb(230, 255, 255);
+  }
+  TT {
+  background-color: rgb(230, 255, 255);
+  }
+  H2 {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 0.7ex;
+  }
+  H3 {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  padding: 0.7ex;
+}  
+</style>
+
+<div style="max-width: 45em;">
+
+  <h1 align="center">TDDC17 Artificial Intelligence</h1>
+
+  <h2>Introduction to PDDL</h2>
+
+<p>
+  PDDL is a standardized "Planning Domain Definition Language" which
+  is widely used to describe planning domains as well as problem
+  instances. It was initially developed for use in an International
+  Planning Competition (IPC) in 1998, allowing all competing planners
+  to use the same input language, and has been gradually but
+  significantly extended and polished since that time. Currently
+  almost all new planners support some subset of PDDL.</p>
+
+<h3>Levels of Expressivity: STRIPS, ADL, and Others</h3>
+
+<p>
+  The PDDL language supports many different levels of expressivity. As
+  you will see later, any domain definition must explicitly declare
+  its expressivity requirements in the shape of a
+  <tt>:requirements</tt> clause. This allows a PDDL parser to verify
+  that you only use the expressivity you have explicitly requested,
+  and allows a planner to easily tell you whether you are requesting
+  features it does not support. <b>Unfortunately</b>, many planners'
+  parsers ignore this specification...</p>
+
+<p>
+  The most basic level of expressivity is called STRIPS, approximately
+  corresponding to what was supported by
+  the <a href="https://secure.wikimedia.org/wikipedia/en/wiki/STRIPS">STanford
+  Research Institute Problem Solver</a> in 1971 (this is the planner
+  that was used for the Shakey robot). To request this level of
+  expressivity, say <tt>(:requirements :strips)</tt> – details
+  below.</p>
+
+<p>
+  A later language called
+  ADL, <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Action_description_language">Action
+  Description Language</a>, added support for a number of different
+  extensions to STRIPS: Negative preconditions (you can only move from
+  A to B if you are NOT carrying anything), disjunctive preconditions
+  (you can only travel by train if you have money OR you already have
+  a ticket), disjunctive goals (you want to own a car OR a
+  motorcycle), and a few other extensions. You can request full ADL
+  expressivity using
+  <tt>(:requirements :adl)</tt>.</p>
+
+<p>
+  Many planners do not support all of the features of ADL. The reason
+  for this is that creating plans efficiently is quite difficult,
+  requiring clever internal plan structures and search spaces. Some
+  search spaces work very well given certain limitations on
+  expressivity, but cannot easily be extended to work outside those
+  limitations. For example, in forward state space search (10.2.1 in
+  the book) we always have a complete state in which a precondition
+  should be evaluated and therefore supporting disjunctive
+  preconditions is trivial. On the other hand, if a planner is based
+  on backward state space search (10.2.2), disjunctive preconditions
+  lead to an explosion in the search space, as regression no longer
+  returns a unique preceding state but a <em>set</em> of potential
+  preceding states.</p>
+
+<p>
+  It is still quite common that planners support <em>some</em>
+  extensions to plain STRIPS, though. PDDL allows us to
+  request such extensions at a fine level of granularity, as in
+  <tt>(:requirements :strips :disjunctive-preconditions)</tt>.</p>
+
+<p>
+  For those of you who want to go straight to the source, here is
+  the <a href="http://planning.cis.strath.ac.uk/competition/">IPC
+  1998 specification of PDDL</a>.  This version should be taken with a
+  grain of salt, however. The <a href="http://www.cs.toronto.edu/aips2000/pddl-subset.ps">IPC 2000
+  specification</a> is significantly reduced, and closer to what most
+  planning systems actually support. The specification
+  for <a href="http://www.dur.ac.uk/d.p.long/competition.html">IPC
+  2002</a> (often called <em>PDDL 2.1</em>) adds many new features,
+  including numerical state variables, actions with duration and the
+  possibility to specify a metric to optimize in addition to the
+  logical problem goal. However, there are still many planners not
+  supporting these extensions.</p>
+
+<a name="examples"><h3>Examples</h3></a>
+
+<p>
+  We provide <a href="https://www.ida.liu.se/~TDDC17/info/labs/planning/strips/">several examples</a> of PDDL
+  domain and problem definitions using only the STRIPS subset of PDDL
+  as well as <a href="https://www.ida.liu.se/~TDDC17/info/labs/planning/pddl/">several examples</a> using
+  object types and some ADL features.</p>
+
+<p>
+  We also provide several variants of
+  the <a href="https://www.ida.liu.se/~TDDC17/info/labs/planning/2004/sat/satellite/">Satellite domain</a>
+  used in IPC 2002, which illustrate the extended features of PDDL
+  2.1.</p>
+
+<h3>Tools</h3>
+
+<p>
+  For those of you who use Emacs (and know how to customize it), there
+  is a special <a href="http://www.emacswiki.org/emacs/pddl-mode.el">PDDL
+  mode</a> you can download.  This mode provides syntax highlighting
+  for PDDL.  Otherwise, you can use Scheme mode (M-x scheme-mode) or
+  Lisp mode (M-x lisp-mode), or simply plain text mode (no changes
+  required).
+</p>
+
+<p>
+  A parser is available which you can optionally use test to test 
+whether your PDDL domain definitions are syntactically correct. <i>Note that the parser requires the same planners.mod as the planners. See the instructions on 
+running the planners.</i>
+      </p><dl>
+        <dd><tt>parser domainFile [problemFile]</tt></dd>
+      </dl>
+       
+      The parser can check the domain or the domain and problem file. 
+      It cannot check the problem file without the domain. Be aware that
+ the parser can be very pedantic and not always give you understandable 
+error messages. It is advised to check the domain with a planner like FF
+ first, and if 
+you cannot figure out what an error message is, or it runs but you get 
+weird results instead, then the parser can be used as a last resort. 
+Some of the terms the parser uses is covered in a follow-up course on 
+planning 
+(TDDD48).  
+<p></p>
+
+
+<h2>The PDDL Domain Definition</h2>
+
+<p>
+  A PDDL definition consists of two parts: The <em>domain
+  definition</em> and the
+  <em>problem (instance) definition</em>.  Although not required by
+  the PDDL standard, many planners require that the two parts are in
+  separate files.</p>
+
+<p>
+  The domain definition gives each domain a name and specifies the
+  predicates and operators that are available in the domain (though
+  operators are called <em>actions</em> in PDDL). It may also specify
+  types (see
+  <strong>Typing</strong>, below), constants, static facts and many
+  other things, some of which are not supported by the majority of
+  planners.
+</p>
+
+<p>
+  The format of a (simple) domain definition is as follows.  Elements
+  in [] are optional.  You may want to keep one or two of
+  the <a href="#examples">example domain definitions</a> open while
+  you read this.
+</p>
+<pre><tt>(define (domain DOMAIN_NAME)
+  (:requirements [:strips] [:equality] [:typing] [:adl] ...)
+  [(:types T1 T2 T3 T4 ...)]
+  (:predicates (PREDICATE_1_NAME [?A1 ?A2 ... ?AN])
+               (PREDICATE_2_NAME [?A1 ?A2 ... ?AN])
+	       ...)
+
+  (:action ACTION_1_NAME
+    [:parameters (?P1 ?P2 ... ?PN)]
+    [:precondition PRECOND_FORMULA]
+    [:effect EFFECT_FORMULA]
+   )
+
+  (:action ACTION_2_NAME
+    ...)
+
+  ...)
+</tt></pre>
+
+<p>
+  Names (domain, predicate, action, etc.) may usually contain
+  alphanumeric characters, hyphens ("<tt>-</tt>") and underscores
+  ("<tt>_</tt>"), though there may be some planners that allow less.
+</p>
+
+<p>
+  Many of the reserved keywords start with a colon, so that newly
+  invented keywords will not interfere with names you have already
+  used for other purposes in your domain and problem
+  specifications.</p>
+
+<p>
+  Variables, such as parameters of predicates and actions, are
+  distinguished by beginning with a question mark ("?").</p>
+
+<p>
+  Comments in a PDDL file start with a semicolon ("<tt>;</tt>") and
+  last to the end of the line.
+</p>
+
+<h3>Requirements</h3>
+<p>
+  Because PDDL is a very general language and most planners support
+  only a subset, domains may declare requirements (see the grammar
+  below). The most commonly used requirements are:
+</p>
+
+<dl>
+  <dt><tt>:strips</tt></dt>
+
+  <dd>The most basic subset of PDDL, consisting of STRIPS only.</dd>
+
+  <dt><tt>:equality</tt></dt>
+
+  <dd>The domain uses the predicate <tt>=</tt>, interpreted as
+    equality.</dd>
+
+  <dt><tt>:typing</tt></dt>
+
+  <dd>The domain uses object types (see below).</dd>
+
+  <dt><tt>:adl</tt></dt>
+
+  <dd>The domain uses some or all of ADL (<em>i.e.</em>  disjunctions
+    and quantifiers in preconditions and goals, and quantified and
+    conditional effects).</dd>
+
+  <h3>Type Definitions</h3>
+
+  <p>
+    In most current planners, objects can be declared to have specific
+    types, such as "container", "location", "vehicle", and so on.  If
+    object types are to be used in a domain, the domain should first
+    of all declare the requirement <tt>:typing</tt>.
+  </p>
+  
+  <p>
+    All type names have to be declared before they are used (which
+    usually means before the <tt>:predicates</tt> declaration). This
+    is done with the following declaration:</p>
+
+  <pre><tt>(:types NAME1 ... NAME_N)</tt></pre>
+
+  <p>
+    An example for the Dock Worker Robots domain:
+  </p>
+
+  <pre><tt>(define (domain dock-worker-robots)
+	(:requirements 
+		:strips
+		:typing )
+	
+	(:types 
+		location	; there are several connected locations in the harbor 
+		pile	; attached to a location, holds a pallet + a stack of containers 
+		robot	; holds at most 1 container, only 1 robot per location
+		crane	; belongs to a location to pickup containers
+		container)
+)
+  </tt></pre>
+
+  <p>
+    We will return to object types when discussing predicate
+    definitions, action definitions, and object specifications.
+  </p>
+  
+<h3>Predicate Definitions</h3>
+
+  <p>
+    Under <tt>:predicates</tt>, you define all predicates ("boolean
+  state variables") to be used in the domain.  The parameters
+  variables used each predicate declarationhave no other function than
+  to specify the number of arguments that the predicate should
+  have, <em>i.e.</em> the parameter names do not matter (as long as
+  they are distinct).  Predicates can have zero parameters (but in
+  this case, the predicate name still has to be written within
+  parentheses).</p>
+
+  <p>
+    If you want to use typed parameters, each parameter is written as
+    <tt>?X - TYPE_OF_X</tt>. A list of parameters of the same type can
+    be abbreviated to <tt>?X ?Y ?Z - TYPE_OF_XYZ</tt>. Note that the
+    hyphen between parameter and type name has to be surrounded by
+    whitespace. An example for the Dock Worker Robots domain:
+  </p>
+
+  <pre><tt>(define (domain dock-worker-robots)
+   (:requirements ...)
+   (:types ...)
+   (:predicates
+	(adjacent	?l1  ?l2 - location)		; can move from ?l1 directly to ?l2
+	(attached	?p - pile ?l - location)	; pile ?p attached to location ?l
+	(belong		?k - crane ?l - location)	; crane ?k belongs to location ?l
+
+	(at		?r - robot ?l - location)	; robot ?r is at location ?l
+	(occupied	?l - location)			; there is a robot at location ?l
+	(loaded		?r - robot ?c - container )	; robot ?r is loaded with container ?c
+	(unloaded	?r - robot)			; robot ?r has no cargo
+
+	(holding	?k - crane ?c - container)	; crane ?k is holding container ?c
+	(empty		?k - crane)			; crane ?k is not holding anything
+
+	(in		?c - container ?p - pile)	; container ?c is somewhere in pile ?p
+	(top		?c - container ?p - pile)	; container ?c is on top of pile ?p
+	(on		?k1 ?k2 - container )		; container ?k1 is on container ?k2
+   )
+  </tt></pre>
+
+
+
+<h3>Action Definitions</h3>
+  <p>
+    As shown above, an action is generally specified as follows:
+  </p>
+
+  <pre><tt>(:action ACTION_1_NAME
+    [:parameters (?P1 ?P2 ... ?PN)]
+    [:precondition PRECOND_FORMULA]
+    [:effect EFFECT_FORMULA]
+)</tt></pre>
+
+  <p>
+  All parts of an action definition except the name are, according to
+  the spec, optional (although, of couse, an action without effects is
+  pretty useless). However, for an action that has no preconditions
+  some planners may require an "empty" precondition, on the
+  form <tt>:precondition ()</tt> (some planners may also require an
+  empty <tt>:parameter</tt> list for actions without parameters).  Example:
+</p>
+
+  <pre><tt>(define (domain dock-worker-robots)
+ 	...
+	(:action move                                
+		:parameters (?r - robot    ?from ?to - location)
+
+		:precondition (and (adjacent ?from ?to)
+				         (at ?r ?from)
+				         (not (occupied ?to)))
+
+		:effect (and (at ?r ?to) (not (occupied ?from))
+		                (occupied ?to) (not (at ?r ?from))
+	)
+)
+</tt></pre>
+  <p>
+    Parameter types are declared in the same way as in predicate
+    specifications. This ensures that planners do not try to apply
+    actions using unexpected object types.  For example, in Dock
+    Worker Robots, we do not want a crane to be able to lift a robot
+    and place it on top of a pile of containers.  Cranes can only lift
+    containers.</p>
+
+
+  
+<p>
+  <strong>Note:</strong> Some planners only try to apply actions where
+  all arguments are different, <em>i.e.</em> the same object may not
+  be used as a value of two distinct parameters of the same action.
+  Such planners might use actions such as move(A,B) and move(B,A), but
+  would not consider move(A,A) or move(B,B) to be a valid action.  In
+  this particular example, forbidding a move from one position to the
+  same position seems quite reasonable, but for other actions it may
+  cause some difficulties.  Consider the action
+  moveto(?piece,?destcolumn,?destrow) for example.  If we represent
+  both columns and rows are represented by the constants
+  A/B/C/D/E/F/G/H, a planner of the type discussed here would never
+  use an action such as moveto(bishop1,A,A) or moveto(pawn2,C,C),
+  making it impossible to move to a position on the diagonal and
+  making some problems unsolvable.  See the <a href="https://www.ida.liu.se/~TDDC17/info/labs/planning/strips/slidetile.pddl">SlideTile domain definition</a> and
+  the two problem definitions <a href="https://www.ida.liu.se/~TDDC17/info/labs/planning/strips/eight01.pddl"><tt>eight01.pddl</tt></a>
+  and <a href="https://www.ida.liu.se/~TDDC17/info/labs/planning/strips/eight01x.pddl"><tt>eight01x.pddl</tt></a>for an
+  example of this problem and how to fix it.</p>
+
+<h3>Precondition Formulas</h3>
+
+<p>
+  In a STRIPS domain, a precondition formula may be one of the
+  following (see also the example above):
+</p>
+
+<ul>
+  <li><p>An atomic formula:<br>
+    <tt>(PREDICATE_NAME ARG1 ... ARG_N)</tt><br> The predicate
+    arguments must be parameters of the action (or constants declared
+    in the domain, if the domain has constants).</p></li>
+
+  <li><p>A conjunction of atomic formulas:<br>
+      <tt>(and ATOM1 ... ATOM_N)</tt></p></li>
+</ul>
+
+  <p>
+    If the domain uses <tt>:adl</tt>
+    or <tt>:negated-precondition</tt>, an atomic formula may also be
+    of the form <tt>(not (PREDICATE_NAME ARG1 ... ARG_N))</tt>,
+    specifying that the given fact must be false.
+  </p>
+  
+<p>
+  If the domain uses <tt>:equality</tt>, an atomic formula may also be
+  of the form
+  <tt>(= ARG1 ARG2)</tt>. Many planners that support equality also
+  allow negated equality, which is written <tt>(not (= ARG1
+  ARG2))</tt>, even if they do not allow negation in any other part of
+  the definition.
+</p>
+
+<p>
+  In an ADL domain, specified with <tt>:adl</tt>, a precondition may in addition be:</p>
+
+<ul>
+  <li><p>A general negation, conjunction, disjunction, or implication:<br>
+    <tt>(not CONDITION_FORMULA)</tt><br>
+    <tt>(and CONDITION_FORMULA1 ... CONDITION_FORMULA_N)</tt><br>
+    <tt>(or CONDITION_FORMULA1 ... CONDITION_FORMULA_N)</tt></p></li>
+    <tt>(imply CONDITION_FORMULA1 CONDITION_FORMULA_2)</tt><p></p>
+
+  <li><p>A quantified formula:<br>
+    <tt>(forall (?V1 ?V2 ...) CONDITION_FORMULA)</tt><br>
+    <tt>(exists (?V1 ?V2 ...) CONDITION_FORMULA)</tt></p></li>
+</ul>
+
+<h3>Effect Formulas</h3>
+
+<p>In PDDL, the effects of an action are not explicitly divided into
+"adds" and "deletes", as in some other planning languages. Instead,
+negative effects (deletes) are specified using a negation
+operator.</p>
+
+<p>
+  In a STRIPS domain, an effect formula may consist of the following
+  (see also the example above):</p>
+
+<ul>
+  <li><p>An added atom:<br>
+    <tt>(PREDICATE_NAME ARG1 ... ARG_N)</tt><br> The predicate
+    arguments must be parameters of the action (or constants declared
+    in the domain, if the domain has constants).</p></li>
+
+  <li><p>A deleted atom:<br>
+    <tt>(not (PREDICATE_NAME ARG1 ... ARG_N))</tt></p></li>
+
+  <li><p>A conjunction of effects:<br>
+    <tt>(and ATOM1 ... ATOM_N)</tt></p></li>
+</ul>
+
+<p>The equality predicate (<tt>=</tt>) can of course not occur in an
+effect formula; no action can make two identical things be not
+identical, or vice versa!
+</p>
+<p>
+  In an ADL domain, an effect formula may in addition contain:</p>
+
+<ul>
+  <li><p>A conditional effect:<br>
+    <tt>(when CONDITION_FORMULA EFFECT_FORMULA)</tt><br> The
+    interpretation is that the specified effect takes place only if
+    the specified condition formula is true in the state where the
+    action is executed. Conditional effects are often but not always
+    placed within quantifiers.</p></li>
+
+  <li><p>A universally quantified formula:<br>
+    <tt>(forall (?V1 ?V2 ...) EFFECT_FORMULA)</tt></p></li>
+</ul>
+
+<h2>The PDDL Problem Definition</h2>
+
+  <p>
+    The problem definition first specifies its name and which domain
+    it belongs to.  It then specifies the objects present in the
+    problem instance, the initial state of the world, and the goal.
+  </p>
+  
+<p>
+  The format of a (simple) problem definition is:</p>
+<pre><tt>(define (problem PROBLEM_NAME)
+  (:domain DOMAIN_NAME)
+  (:objects OBJ1 OBJ2 ... OBJ_N)
+  (:init ATOM1 ATOM2 ... ATOM_N)
+  (:goal CONDITION_FORMULA)
+  )
+</tt></pre>
+
+  <p>
+    The object list can be typed or untyped.  A typed example from Dock Worker Robots:
+  </p>
+
+<pre><tt>(define	(problem dwr-problem-1)
+	(:domain dock-worker-robots)
+	(:objects
+		r1		- robot
+		loc1 loc2	- location
+		k1		- crane
+		p1 p2		- pile
+		c1 c2 c3 pallet	- container)
+	...
+)</tt></pre>
+
+
+<p>
+  The initial state description (the <tt>:init</tt> section) is simply
+  a list of all the ground (variable-free) atoms that are true in the
+  initial state. All other atoms are by definition false.  For
+  example:
+</p>
+
+<pre><tt>(define (problem dwr-problem-1)
+	(:domain dock-worker-robots)
+	(:objects ...)
+	(:init
+	    (attached p1 loc1) (in c1 p1) (on c1 pallet) (in c3 p1) (on c3 c1) (top c3 p1) 
+	    (attached p2 loc1) (in c2 p2) (on c2 pallet) (top c2 p2) 
+	    (belong crane1 loc1) (empty crane1) 
+	    (at r1 loc2) (unloaded r1) (occupied loc2) 
+	    (adjacent loc1 loc2) (adjacent loc2 loc1)
+	)
+)
+</tt></pre>
+
+
+<p>
+  The goal description is not a state or list of literals, but is
+  instead expressed as a formula of the same form as an action
+  precondition. Example:</p>
+
+<pre><tt>(define (problem dwr-problem-1)
+	(:domain dock-worker-robots)
+	(:objects ...)
+	(:init ...)
+	(:goal (and (in c1 p2) (in c3 p2))))
+</tt></pre>
+      
+<h2>Typing</h2>
+
+<p>
+  PDDL has a (very) special syntax for declaring parameter and object
+  types. If types are to be used in a domain, the domain should first
+  of all declare the requirement <tt>:typing</tt>.
+
+</p><p>
+  Second, the type names have to be declared before they are used
+  (which usually means before the <tt>:predicates</tt>
+  declaration). This is done with the declaration</p>
+<pre>  <tt> (:types NAME1 ... NAME_N)</tt></pre>
+
+<p>
+  Then, to declare the type of a parameter of a predicate or action
+    one writes <tt>?X&nbsp;-&nbsp;TYPE_OF_X</tt>. A list of parameters
+    of the same type can be abbreviated
+    to <tt>?X&nbsp;?Y&nbsp;?Z&nbsp;-&nbsp;TYPE_OF_XYZ</tt>. Note that
+    the hyphen between parameter and type name has to be
+    "free-standing", <em>i.e.</em> surrounded by whitespace.</p>
+
+<p>
+  The syntax is the same for declaring types of objects in the problem
+  definition.</p>
+
+<h2>Common problems</h2>
+
+
+<ul>
+  <li><p>
+      If there are errors in your domain or problem definitions, some 
+planners may silently accept them anyway, but give unpredictable 
+results.  If you are having problems finding plans, please try running 
+Fast Downward on the definitions – it may point out plain errors that 
+another planner has missed.
+    </p>
+
+    <pre>    /courses/TDDC17/sw/fdlog/fast-downward.py DOMAIN PROBLEM CONFIGURATION [FLAGS]
+    </pre>
+  </li>
+
+  <li>
+    <p>
+      Be careful about mixing <em>type predicates</em>
+      and <em>types</em>.  Type predicates and types are two different
+      solutions that should not be used together, and there is no
+      information flow from one to the other.  This could lead to
+      situations where you can't find plans because you have declared
+      an object to be of <em>type</em> <tt>block</tt> without
+      declaring that it satisfies the <em>type
+	predicate</em> <tt>(block ?b)</tt>, or vice versa.
+    </p>
+    <p>
+      As we discussed above, many planners support actual types, which 
+work very much like types in programming languages:  Parameter variables
+ are declared to be of particular types, objects are defined as 
+belonging to particular types, and so on.  If you use actual types, and 
+declare a list of objects as (for example) <tt>B1 B2 B3 - block</tt>, then this will <em>not</em> result in a type predicate that you can use as <tt>(block ?b)</tt>.
+    </p>
+    <p>
+      And if you do use type predicates, by declaring a predicate called <tt>block</tt>, then this predicate will have to be initialized in the ordinary initial state, by a declaration such as <tt>(block B1) (block B2) (block B3)</tt>.
+    </p>
+  </li>
+</ul>
+</dl></div>
+
+	  <br class="cleaner">
+	  <p class="content-responsible">
+            Page responsible: <a title="Email Patrick Doherty (patrick.doherty@liu.se)" href="mailto:patrick.doherty@liu.se?subject=https://www.ida.liu.se/~TDDC17/info/labs/planning/writing.shtml">Patrick Doherty</a><br>
+ Last updated: 2019-09-26
+	  </p>
+	</div>
+      </div>
+      <br class="cleaner">
+    </div>
+    <div id="foot" style="visibility: visible;"><div class="foot-width-limit">
+      <div id="foot-content">
+	<div class="foot-column">
+          <div class="text">
+            <p><strong>Department of Computer and Information Science</strong><br>
+            LinkÃ¶ping University<br>
+            581&nbsp;83 LINKÃ–PING<br>
+	    Tel: +46&nbsp;13&nbsp;28&nbsp;10&nbsp;00<br>
+	    </p>
+            <p>
+              <a href="https://www.ida.liu.se/department/contact/index.en.shtml" title="Contact IDA">Contact IDA</a> |
+	      <a href="https://www.ida.liu.se/department/location/index.en.shtml" title="Maps">Maps</a>
+            </p>
+          </div>
+        </div>
+        <div class="foot-column">
+          <div class="text">
+            <p>
+              <strong>LiU organization</strong>
+            </p>
+            <ul>
+              <li><a href="https://liu.se/en/about-liu">About LiU</a></li>
+            </ul>
+            <ul>
+              <li><a href="https://www.filfak.liu.se/?l=en">Arts &amp; Sciences</a></li>
+              <li><a href="https://www.liu.se/uv?l=en">Educational Sciences</a></li>
+              <li><a href="https://old.liu.se/medfak?l=en">Medicine and Health Sciences</a></li>
+              <li><a href="https://www.lith.liu.se/?l=en">Science and Engineering</a></li>
+            </ul>
+            <ul>
+              <li><a href="https://insidan.liu.se/organisation/institutioner?l=en">Departments</a></li>
+              <li><a href="https://insidan.liu.se/organisation/uf?l=en">Offices &amp; Administration</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-column">
+          <div class="text">
+            <p><strong>At LiU</strong></p>
+            <ul>
+              <li><a href="https://liu.se/en/education" title="Education">Education</a></li>
+              <li><a href="https://liu.se/en/research" title="Research">Research</a></li>
+              <li><a href="https://liu.se/en/collaboration" title="Collaboration">Collaboration</a></li>
+            </ul>
+            <ul>
+              <li><a href="https://www.student.liu.se/?l=en" title="LiU Students">LiU Students</a></li>
+              <li><a href="https://old.liu.se/insidan?l=en" title="LiU Employees">LiU Employees</a></li>
+              <li><a href="https://liu.se/en/collaboration/alumni" title="LiU Alumni">LiU Alumni</a></li>
+            </ul>
+            <ul>
+              <li><a href="https://liu.se/en/library" title="Library">Library</a></li>
+              <li><a href="https://liu.se/en/work-at-liu" title="Vacancies">Vacancies</a></li>
+              <li><a href="https://liu.se/en/news/press-contacts" title="Press Room">Press Room</a></li>
+              <li><a href="https://www.ep.liu.se/en/" title="LiU Electronic Press">LiU Electronic Press</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-column">
+          <div class="text">
+            <p><strong>At IDA</strong></p>
+            <ul>
+              <li><a href="https://www.ida.liu.se/edu/ugrad/index.en.shtml">Undergraduate studies</a></li>
+              <li><a href="https://www.ida.liu.se/edu/ugrad/thesis/index.en.shtml">Final Thesis</a></li>
+              <li><a href="https://www.ida.liu.se/edu/grad/index.en.shtml">Doctoral studies</a></li>
+              <li><a href="https://www.ida.liu.se/research/index.en.shtml">Research</a></li>
+              <li><a href="https://www.ida.liu.se/department/org/index.en.shtml">Organization</a></li>
+              <li><a href="https://www.ida.liu.se/local/ida/index.en.shtml">Internal</a></li>
+              <li><a href="https://www.ida.liu.se/department/emergency/index.en.shtml">Emergency</a></li>
+            </ul>
+          </div>
+        </div>
+	<div id="foot-content-end"></div>
+      </div>
+      <div id="page-icons">
+	<script type="text/javascript" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/addthis_widget.js"></script>
+	<div class="addthis_toolbox addthis_default_style">
+	  <a class="addthis_button_facebook at300b" title="Facebook" href="#"><span class="at-icon-wrapper" style="background-color: rgb(59, 89, 152); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-facebook-1" class="at-icon at-icon-facebook" style="width: 16px; height: 16px;" title="Facebook" alt="Facebook"><title id="at-svg-facebook-1">Facebook</title><g><path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path></g></svg></span></a>
+	  <a class="addthis_button_twitter at300b" title="Twitter" href="#"><span class="at-icon-wrapper" style="background-color: rgb(29, 161, 242); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-twitter-2" class="at-icon at-icon-twitter" style="width: 16px; height: 16px;" title="Twitter" alt="Twitter"><title id="at-svg-twitter-2">Twitter</title><g><path d="M27.996 10.116c-.81.36-1.68.602-2.592.71a4.526 4.526 0 0 0 1.984-2.496 9.037 9.037 0 0 1-2.866 1.095 4.513 4.513 0 0 0-7.69 4.116 12.81 12.81 0 0 1-9.3-4.715 4.49 4.49 0 0 0-.612 2.27 4.51 4.51 0 0 0 2.008 3.755 4.495 4.495 0 0 1-2.044-.564v.057a4.515 4.515 0 0 0 3.62 4.425 4.52 4.52 0 0 1-2.04.077 4.517 4.517 0 0 0 4.217 3.134 9.055 9.055 0 0 1-5.604 1.93A9.18 9.18 0 0 1 6 23.85a12.773 12.773 0 0 0 6.918 2.027c8.3 0 12.84-6.876 12.84-12.84 0-.195-.005-.39-.014-.583a9.172 9.172 0 0 0 2.252-2.336" fill-rule="evenodd"></path></g></svg></span></a>
+	  <a class="addthis_button_email at300b" target="_blank" title="Email" href="#"><span class="at-icon-wrapper" style="background-color: rgb(132, 132, 132); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-email-3" class="at-icon at-icon-email" style="width: 16px; height: 16px;" title="Email" alt="Email"><title id="at-svg-email-3">Email</title><g><g fill-rule="evenodd"></g><path d="M27 22.757c0 1.24-.988 2.243-2.19 2.243H7.19C5.98 25 5 23.994 5 22.757V13.67c0-.556.39-.773.855-.496l8.78 5.238c.782.467 1.95.467 2.73 0l8.78-5.238c.472-.28.855-.063.855.495v9.087z"></path><path d="M27 9.243C27 8.006 26.02 7 24.81 7H7.19C5.988 7 5 8.004 5 9.243v.465c0 .554.385 1.232.857 1.514l9.61 5.733c.267.16.8.16 1.067 0l9.61-5.733c.473-.283.856-.96.856-1.514v-.465z"></path></g></svg></span></a>
+	  <span class="addthis_separator">&nbsp;</span>
+	  <a class="addthis_button_compact at300m" href="#"><span class="at-icon-wrapper" style="background-color: rgb(255, 101, 80); line-height: 16px; height: 16px; width: 16px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-addthis-4" class="at-icon at-icon-addthis" style="width: 16px; height: 16px;" title="More" alt="More"><title id="at-svg-addthis-4">AddThis</title><g><path d="M18 14V8h-4v6H8v4h6v6h4v-6h6v-4h-6z" fill-rule="evenodd"></path></g></svg></span>Share</a>
+	  <span class="addthis_separator">&nbsp;</span>
+	  <a href="#">Top of page <img src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/till_toppen.png" alt="Top of page"></a>
+	<div class="atclear"></div></div>
+	<script type="text/javascript">
+	  var addthis_config = {
+	    username: "liuweb",
+	    ui_language: "en",
+	    data_use_flash: false,
+	    data_use_cookies: false
+	  };
+	  var addthis_share = {
+	    templates: {
+	      twitter: "{{title}}: {{url}} #LiU"
+	    },
+            url: "https://www.ida.liu.se/~TDDC17/info/labs/planning/writing.shtml",
+            title: "TDDC17-PDDL"
+	  };
+	</script>
+      </div>
+      <br>
+    </div><br><div id="pageTypeLinks"><h2><a href="#" id="mobile">mobil.liu.se</a> | <a href="#" id="desktop">www.liu.se</a></h2></div></div><div style="visibility: hidden; height: 1px; width: 1px; position: absolute; top: -9999px; z-index: 100000;" id="_atssh"><iframe id="_atssh499" title="AddThis utility frame" style="height: 1px; width: 1px; position: absolute; top: 0px; z-index: 100000; border: 0px none; left: 0px;" src="TDDC17%20%3E%20Writing%20Planning%20Domains%20and%20Problems%20in%20PDDL_files/sh.html"></iframe></div><style id="service-icons-0"></style>
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2538626-1']);
+      _gaq.push(['_setDomainName', '.liu.se']);
+      _gaq.push(['_addIgnoredRef', 'liu.se']);
+      _gaq.push(['_gat._anonymizeIp']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  
+
+
+
+
+</body></html>
