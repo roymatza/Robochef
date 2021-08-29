@@ -10,6 +10,12 @@ class Predicate:
     
     def value(self):
         pass
+    
+    def unparse(self):
+        s = "{} {}"
+        pred_name = self.name
+        arg_names = [arg.metadata["name"] for arg in self.args]
+        return s.format(self.name, ' '.join(arg_names))
 
     @staticmethod
     def parse(pred_str, objectsDic):
@@ -22,10 +28,10 @@ class Predicate:
         pred_name = pred_words[0]
         len_args = len(pred_words) - 1
 
-        pred_objects = [objectsDic[arg] for arg in pred_words[1:len_args+1]]
+        pred_objects = [objectsDic[arg_str] for arg_str in pred_words[1:len_args+1]]
         predicate = globals()[pred_name]
 
-        return predicate(*pred_objects)
+        return predicate(*pred_objects)    
 
 class on(Predicate):
     def __init__(self, *obj_args) -> None:
@@ -34,7 +40,8 @@ class on(Predicate):
     
     def value(self):
         obj1, obj2 = self.args[0], self.args[1]
-        return (obj1.metadata["id"] in obj2.metadata["receptacleObjectIds"])
+        return ((obj2.metadata["receptacleObjectIds"] is not None) and 
+        (obj1.metadata["id"] in obj2.metadata["receptacleObjectIds"]))
 
 class contains(Predicate):
     def __init__(self, *obj_args) -> None:
@@ -43,7 +50,8 @@ class contains(Predicate):
     
     def value(self):
         obj1, obj2 = self.args[0], self.args[1]
-        return (obj1.metadata["id"] in obj2.metadata["receptacleObjectIds"])
+        return ((obj2.metadata["receptacleObjectIds"] is not None) and 
+        (obj1.metadata["id"] in obj2.metadata["receptacleObjectIds"]))
 
 class empty(Predicate):
     def __init__(self, *obj_args) -> None:
@@ -81,6 +89,15 @@ class interactable(Predicate):
         obj1 = self.args[0]
         return (obj1.metadata["interactable"])
 
+class held(Predicate):
+    def __init__(self, *obj_args) -> None:
+        assert len(obj_args) == 1
+        super().__init__("held", *obj_args)
+    
+    def value(self):
+        obj1 = self.args[0]
+        return (obj1.metadata["isPickedUp"])
+
 class near(Predicate):
     def __init__(self, *obj_args) -> None:
         assert len(obj_args) == 1
@@ -97,4 +114,13 @@ class available(Predicate):
     
     def value(self):
         obj1 = self.args[0]
-        return (not(obj1.metadata["isToggled"]))  
+        return (not(obj1.metadata["isToggled"])) 
+
+class egg_cracked(Predicate):
+    def __init__(self, *obj_args) -> None:
+        assert len(obj_args) == 1
+        super().__init__("egg-cracked", *obj_args)
+    
+    def value(self):
+        obj1 = self.args[0]
+        return (obj1.metadata["type"] == "EggCracked")  
