@@ -4,9 +4,22 @@ from scene_info import Object
 import random
 
 class Action:
-    def __init__(self, names, scene: Scene, *obj_args) -> None:
-        assert (all([isinstance(arg,Object) for arg in obj_args]) and len(obj_args) > 0)
-        self.names = names #names of corresponding actions in pddl
+    #names of corresponding actions in pddl
+    actionsDict = {
+        "make-interactable": "make_interactable",
+        "move-robot": "move_robot",
+        "place": "place",
+        "put": "place",
+        "break": "break_object",
+        "break-egg": "break_object",
+        "cook": "cook",
+        "turn-on": "toggle_on",
+        "make-coffee": "toggle_on",
+        "turn-off": "toggle_off"
+    }
+    
+    def __init__(self, scene: Scene, *obj_args) -> None:
+        assert (all([isinstance(arg,Object) for arg in obj_args]) and len(obj_args) > 0) 
         self.scene = scene
         self.args = obj_args
         
@@ -22,7 +35,7 @@ class Action:
         len_args = len(action_words) - 1
 
         action_objects = [objectsDic[arg_str] for arg_str in action_words[1:len_args+1]]
-        action = globals()[action_name.replace("-","_")]
+        action = globals()[Action.actionsDict[action_name]]
 
         return action(*action_objects) 
 
@@ -30,7 +43,7 @@ class make_interactable(Action):
     '''change robot from one and pose to another and do some actions in order to make an object visible'''
     def __init__(self, scene, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(["make-interactable"], scene, *obj_args)
+        super().__init__(scene, *obj_args)
     
     def __reach(self, obj):
         relevant_poses = self.scene.controller.step(
@@ -83,8 +96,8 @@ class make_interactable(Action):
 class move_robot(Action):
     '''move robot towards an object'''
     def __init__(self, scene, *obj_args) -> None:
-        assert len(obj_args) == 1
-        super().__init__(["move-robot"], scene, *obj_args)
+        assert len(obj_args) == 2
+        super().__init__(scene, obj_args)
     
     def execute(self):
         pass
@@ -93,7 +106,7 @@ class pickup(Action):
     '''pickup an object that is interactable to the robot'''
     def __init__(self, scene, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(["pickup"], scene, *obj_args)
+        super().__init__(scene, obj_args)
     
     def execute(self):
         obj = self.args[0]
@@ -114,7 +127,7 @@ class place(Action):
     '''place an object onto a surface'''
     def __init__(self, scene, *obj_args) -> None:
         assert len(obj_args) == 2
-        super().__init__(["place"], scene, *obj_args)
+        super().__init__(scene, obj_args)
     
     def execute(self):
         to_place, surface = self.args[0], self.args[1]
@@ -127,9 +140,11 @@ class place(Action):
             # Exception(f'object {to_place.metadata["name"]} can\'t be placed on {surface.metadata["name"]}')
 
         event = self.scene.controller.step(
-            action="GetSpawnCoordinatesAboveReceptacle",
-            objectId=surface.metadata["id"],
-            anywhere=False)
+            action="PutObject",
+            objectId=to_place.metadata["id"],
+            forceAction=False,
+            placeStationary=True
+        )
         
         return event
 
@@ -137,7 +152,7 @@ class break_object(Action):
     '''move robot towards an object'''
     def __init__(self, scene, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(["break", "break-egg"], scene, *obj_args)
+        super().__init__(scene, obj_args)
     
     def execute(self):
         obj = self.args[0]
@@ -152,25 +167,51 @@ class break_object(Action):
 
         return event
 
-class break_object(Action):
-    '''move robot towards an object'''
+class cook(Action):
+    '''cook an object'''
+    def __init__(self, scene, *obj_args) -> None:
+        assert len(obj_args) == 3
+        super().__init__(scene, obj_args)
+    
+    def execute(self):
+        to_cook = self.args[0]
+        if not to_cook.metadata["isCookable"]:
+            raise Exception(f'Object {to_cook.metadata["name"]} is not cookable')
+
+        if not to_cook.metadata["isCooked"]:
+            event = self.scene.controller.step(
+                action="CookObject",
+                objectId=to_cook.metadata["id"],
+                forceAction=False)
+        
+        return event
+        
+class toggle_on(Action):
+    '''turn on a device'''
     def __init__(self, scene, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(["cook", "cook-egg"], scene, *obj_args)
+        super().__init__(scene, obj_args)
     
     def execute(self):
         obj = self.args[0]
-        if not obj.metadata["breakable"]:
-            raise Exception(f'object {obj.metadata["name"]} is not breakable')
-
-        event = self.scene.controller.step(
-            action="BreakObject",
+        if not obj.metadata["isToggled"]:
+            event = self.scene.controller.step(
+            action="ToggleObjectOn",
             objectId=obj.metadata["id"],
-            forceAction=False
-        )
+            forceAction=False)
 
-        return event
-        
-
+class toggle_off(Action):
+    '''turn off a device'''
+    def __init__(self, scene, *obj_args) -> None:
+        assert len(obj_args) == 1
+        super().__init__(scene, obj_args)
+    
+    def execute(self):
+        obj = self.args[0]
+        if obj.metadata["isToggled"]:
+            event = self.scene.controller.step(
+            action="ToggleObjectOff",
+            objectId=obj.metadata["id"],
+            forceAction=False)
 
 

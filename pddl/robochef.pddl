@@ -13,10 +13,11 @@
     cookable tableware cookware - pickupable
     pan pot - cookware 
     fork knife plate mug - tableware
-    mug plate coffeeMachine cookware - receptacle
+    mug plate togglable cookware - receptacle
     potato egg - cookable
     cookable - food
-    table countertop - surface 
+    table countertop stoveburner - surface
+    coffeemachine stoveburner - togglable
 )
 
 
@@ -28,12 +29,12 @@
     ; (holding ?r) ;derived from 'is-held'
     (contains ?y - receptacle ?x) ;true iff ?x is contained in ?y
     (has-coffee ?y - receptacle) ;true iff ?x is filled with coffee
-    (empty ?y - receptacle)
+    (empty ?y - receptacle) ;true iff the object is free
     ; (occupied ?y - receptacle) ;dervied from 'contains'
     (on ?y - surface ?x - pickupable) ;true iff ?x is on top of ?y
-    (cooked ?x) ;true iff ?x is cooked
+    (cooked ?x - cookable) ;true iff ?x is cooked
     (egg-cracked ?e - egg) ;true iff ?x is cracked
-    (available ?x) ;true iff the object is free to use
+    (toggled ?x - togglable) ;true iff the obect is toggled on
 )
 
 ; (:functions
@@ -54,7 +55,7 @@
 
 
 ;define actions here
-(:action teleport-robot
+(:action move-robot
     :parameters (?src ?dest)
     :precondition (and (near ?src) (not (near ?dest)))
     :effect (and (near ?dest) (not (near ?src)) (not(interactable ?src)))
@@ -66,7 +67,7 @@
     :effect (interactable ?x)
 )
 
-(:action grab
+(:action pickup
     :parameters (?x - pickupable)
     :precondition (and (interactable ?x) (forall (?z) (not (held ?z))))
     :effect (and (held ?x)
@@ -94,14 +95,26 @@
 
 (:action make-coffee
     :parameters (?m - mug ?cm - coffeeMachine)
-    :precondition (and (interactable ?cm) (available ?cm) (contains ?cm ?m))
-    :effect (and (not (available ?cm)) (has-coffee ?m))
+    :precondition (and (interactable ?cm) (not(toggled ?cm)) (contains ?cm ?m))
+    :effect (and (has-coffee ?m) (toggled ?cm))
+)
+
+(:action turn-on
+    :parameters (?x - togglable)
+    :precondition (and (not(toggled ?x)) (interactable ?x))
+    :effect (toggled ?x)
+)
+
+(:action turn-off
+    :parameters (?x - togglable)
+    :precondition (and (toggled ?x) (interactable ?x))
+    :effect (not(toggled ?x))
 )
 
 (:action cook
-    :parameters (?c ?p - cookware)
-    :precondition (and (interactable ?p) (held ?c) (empty ?p))
-    :effect (and (cooked ?c) (not (held ?c)) (contains ?p ?c))
+    :parameters (?c - cookable ?p - cookware ?s - stoveburner)
+    :precondition (and (toggled ?s) (contains ?s ?p) (contains ?p ?c))
+    :effect (cooked ?c)
 )
 
 (:action break-egg
@@ -110,10 +123,10 @@
     :effect (egg-cracked ?e)
 )
 
-(:action cook-egg
-    :parameters (?e - egg ?p - cookware)
-    :precondition (and (interactable ?p) (held ?e) (egg-cracked ?e) (empty ?p))
-    :effect (and (cooked ?e) (not (held ?e)) (contains ?p ?e))
-)
+; (:action cook-egg
+;     :parameters (?e - egg ?p - cookware)
+;     :precondition (and (interactable ?p) (held ?e) (egg-cracked ?e) (empty ?p))
+;     :effect (and (cooked ?e) (not (held ?e)) (contains ?p ?e))
+; )
 
 )

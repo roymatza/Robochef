@@ -8,13 +8,13 @@
         egg1 - egg
         pan1 - pan
         plate1 - plate
+        stoveburner1 - stoveburner
 )
 
 (:init ;todo: put the initial state's facts and numeric values here
-        (available coffeemachine1)
         (empty plate1)
         (empty pan1)
-        (interactable countertop1)
+        (empty stoveburner1)
         (near coffeemachine1)
 )
 
