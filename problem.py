@@ -1,16 +1,26 @@
-from copy import Error
-from scene_info import Object
+from ai2thor.controller import Controller
 from scene_info import Scene
-from predicates import Predicate, interactable, near
+from predicates import Predicate, held, interactable, near
 from tasks import Task
 from random import randrange
 
 class Problem:
 
-    def __init__(self, scene: Scene, subtasks) -> None:
-        self.scene = scene
+    # def __init__(self, scene: Scene, subtasks) -> None:
+    #     self.scene = scene
+    #     self.subtasks = subtasks
+    #     self.controller = scene.controller
+    #     self.objects = {} #types -> objects
+    #     self.predicates = []
+    #     self.goal_predicates = []
+
+    def __init__(self, controller: Controller, subtasks = []) -> None:
+        self.controller = controller
+        
+        assert (subtasks == []) or (all([isinstance(sub,Task) for sub in subtasks]))
         self.subtasks = subtasks
-        self.controller = scene.controller
+
+        self.scene = Scene(controller)
         self.objects = {} #types -> objects
         self.predicates = []
         self.goal_predicates = []
@@ -19,7 +29,6 @@ class Problem:
     def InitStates(self):
         if len(self.subtasks) < 1:
             raise ValueError("You have to add tasks to the problem")
-        assert all([isinstance(sub,Task) for sub in self.subtasks])
 
         ##Combining subtasks to common predicates and objects##
         n_subtasks = len(self.subtasks)
@@ -47,8 +56,8 @@ class Problem:
                     else:
                         assignedObj = types2objects[type_str]
                 except StopIteration:
-                    print(f'Object of type {type_str} not found')
-                    raise
+                    raise Exception(f'Object of type {type_str} not found')
+                    
             
             #Creating a predicate entity from objects
             for pred_str in task_init_predicates[i]:
@@ -70,10 +79,7 @@ class Problem:
         for obj in self.objects.values():
             self.predicates.append(near(obj))
             self.predicates.append(interactable(obj))
-
-    def GetTruePredicates(self):
-        '''returns list of true predicates'''
-        return list(filter(lambda x: x.value(), self.predicates))
+            self.predicates.append(held(obj))
     
     def GenerateDataForPDDL(self):
         data = {"pname": "problem_{}".format(randrange(999999)),
@@ -82,3 +88,10 @@ class Problem:
         "goal": [goal_pred.unparse() for goal_pred in self.goal_predicates]}
 
         return data
+    
+    @staticmethod
+    def PrintLastActionStatus(event):
+        print(event.metadata["lastAction"], end="--")
+        print("successful") if event.metadata["lastActionSuccess"] else print("unsuccesful")
+        if event.metadata["errorMessage"]:
+            print("Error: ", event.metadata["errorMessage"])

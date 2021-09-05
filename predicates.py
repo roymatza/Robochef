@@ -107,14 +107,14 @@ class near(Predicate):
         obj1 = self.args[0]
         return (obj1.metadata["distance"] <= visibilityDistance)
 
-class available(Predicate):
+class toggled(Predicate):
     def __init__(self, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__("available", *obj_args)
+        super().__init__("toggled", *obj_args)
     
     def value(self):
         obj1 = self.args[0]
-        return (not(obj1.metadata["isToggled"])) 
+        return (obj1.metadata["isToggled"])
 
 class egg_cracked(Predicate):
     def __init__(self, *obj_args) -> None:

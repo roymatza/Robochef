@@ -13,7 +13,7 @@ class ServeCoffee(Task):
             name = "serve-coffee",
             types = ["mug", "countertop", "coffeemachine"],
             init_predicates=["not has_coffee mug",
-            "available coffeemachine"],
+            "not toggled coffeemachine"],
             goal_predicates=["on countertop mug",
             "has_coffee mug"])
 
@@ -21,10 +21,11 @@ class ServeEgg(Task):
     def __init__(self) -> None:
         super().__init__(
             name = "serve-egg",
-            types = ["egg", "pan","plate", "countertop"],
+            types = ["egg", "pan","plate", "countertop", "stoveburner"],
             init_predicates=["empty plate",
             "empty pan",
-            "not cooked egg"],
+            "not cooked egg",
+            "not toggled stoveburner"],
             goal_predicates=["on countertop plate",
             "egg_cracked egg",
             "contains plate egg",

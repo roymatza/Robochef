@@ -60,7 +60,6 @@ class Scene:
     def __init__(self, controller: Controller) -> None:
         '''Gets an event object of the current scene'''
         self.controller = controller
-        self.reachablePositions = controller.step(action="GetReachablePositions").metadata["actionReturn"]
         self.objects, self.visibleObjects, self.holding = self.getObjectsState(self.controller)
     
     def getObjectsState(self, controller):

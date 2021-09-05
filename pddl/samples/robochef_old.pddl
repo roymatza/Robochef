@@ -58,10 +58,7 @@
 (:action move-robot
     :parameters (?src ?dest)
     :precondition (and (near ?src) (not (near ?dest)))
-    :effect (and (near ?dest)
-    (not (near ?src))
-    (forall (?z) (not(interactable ?z))))
-    ;(forall (?z) (when (not (= ?z ?src)) (not(interactable ?z)))))
+    :effect (and (near ?dest) (not (near ?src)) (not(interactable ?src)))
 )
 
 (:action make-interactable
@@ -121,8 +118,8 @@
 )
 
 (:action break-egg
-    :parameters (?e - egg ?p - pan)
-    :precondition (and (interactable ?e) (contains ?p ?e) (not(cooked ?e)) (not (held ?e)) (not (egg-cracked ?e)))
+    :parameters (?e - egg)
+    :precondition (and (interactable ?e) (not(cooked ?e)) (not (held ?e)) (not (egg-cracked ?e)))
     :effect (egg-cracked ?e)
 )
 

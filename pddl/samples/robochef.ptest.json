@@ -1,0 +1,9 @@
+{
+  "defaultDomain": "robochef.pddl",
+  "defaultOptions": "",
+  "cases": [
+    {
+      "problem": "simple_breakfast.pddl"
+    }
+  ]
+}

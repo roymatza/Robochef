@@ -1,5 +1,5 @@
 
-(define (problem problem_441221) (:domain robochef)
+(define (problem problem_587862) (:domain robochef)
 
 (:objects
         mug1 - mug
@@ -14,7 +14,7 @@
 (:init ;todo: put the initial state's facts and numeric values here
         (empty plate1)
         (empty pan1)
-        (empty stoveburner1)
+        (interactable countertop1)
         (near coffeemachine1)
 )
 

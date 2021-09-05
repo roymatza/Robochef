@@ -1,16 +1,16 @@
-from random import random
-from time import sleep
-from ai2thor.controller import Controller
-from jinja2.loaders import FileSystemLoader
-from tasks import ServeCoffee, ServeEgg
+import os, shutil
+
+from ai2thor.server import Event
 from problem import Problem
-from jinja2 import Environment
+from ai2thor.controller import Controller
+from tasks import ServeCoffee, ServeEgg
 import scene_info as si
-from actions import Action, make_interactable
+from pddl2scene import PlanHandler
+from scene2pddl import SceneHandler
 
 controller = Controller(
     agentMode="default",
-    visibilityDistance=1.5,
+    visibilityDistance = si.visibilityDistance,
     scene="FloorPlan3",
 
     # step sizes
@@ -23,35 +23,45 @@ controller = Controller(
     renderInstanceSegmentation=False,
 
     # camera properties
-    width=960,
-    height=540,
-    fieldOfView=100
+    # width=960,
+    # height=540,
+    # fieldOfView=100
 )
 
-last_scene = si.Scene(controller)
-task1 = ServeCoffee()
-task2 = ServeEgg()
 
-scene_model = Problem(last_scene, [task1, task2])
-scene_model.InitStates()
+tasks = [ServeCoffee(),
+         ServeEgg()]
+domain_filename = "pddl/robochef.pddl"
+problems_path = "pddl/problems"
+planner_path = "planners/LPG-td-1.4/lpg-td"
+max_actions = 1000
 
-rand_objects = [obj for obj in last_scene.objects if obj.metadata["type"] == "fridge"]
 
-for ob in rand_objects:
-    make_interactable(last_scene, ob).execute()
 
-sleep(2)
+##clean old data
+if os.path.exists(problems_path):
+    shutil.rmtree(problems_path)
+os.mkdir(problems_path)
 
-# pddl_data = scene_model.GenerateDataForPDDL()
 
-# env = Environment(loader=FileSystemLoader("templates"),
-#     trim_blocks=True,
-#     lstrip_blocks=True
-# )
+#model the problem
+problem = Problem(controller, tasks)
 
-# template = env.get_template("pfile.pddl")
-# output_from_parsed_template = template.render(data=pddl_data)
+#generate a PDDL problem file
+problem_filename = SceneHandler(problem).ToPDDL(problems_path)
 
-# # to save the results
-# with open("pddl/{}.pddl".format(pddl_data["pname"]), "w") as fh:
-#     fh.write(output_from_parsed_template)
+#use planner to get a solution
+plan_filepath, l_from, l_to = SceneHandler.Plan(planner_path, domain_filename, problem_filename)
+
+plan_handler = PlanHandler(plan_filepath, problem, l_from, l_to)
+#execute actions
+for i in range(max_actions):
+    action = plan_handler.parse_line()
+    if action is not None:
+        event = action.execute()
+        Problem.PrintLastActionStatus(event)
+    else:
+        break
+
+
+

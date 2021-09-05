@@ -1,0 +1,12 @@
+{
+  "defaultDomain": "robochef.pddl",
+  "defaultOptions": "",
+  "cases": [
+    {
+      "problem": "problem_791775.pddl"
+    },
+    {
+      "problem": "problem_441221.pddl"
+    }
+  ]
+}

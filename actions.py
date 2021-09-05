@@ -1,6 +1,7 @@
 from copy import Error
 from scene_info import Scene
 from scene_info import Object
+from problem import Problem
 import random
 
 class Action:
@@ -8,45 +9,55 @@ class Action:
     actionsDict = {
         "make-interactable": "make_interactable",
         "move-robot": "move_robot",
+        "pickup": "pickup",
         "place": "place",
         "put": "place",
-        "break": "break_object",
-        "break-egg": "break_object",
+        "break-egg": "slice_object",
         "cook": "cook",
         "turn-on": "toggle_on",
-        "make-coffee": "toggle_on",
+        "make-coffee": "make_coffee",
         "turn-off": "toggle_off"
     }
     
-    def __init__(self, scene: Scene, *obj_args) -> None:
+    def __init__(self, problem: Problem, *obj_args) -> None:
         assert (all([isinstance(arg,Object) for arg in obj_args]) and len(obj_args) > 0) 
-        self.scene = scene
+        self.scene = problem.scene
+        self.controller = problem.controller
+        self.objects = problem.objects.values()
         self.args = obj_args
         
     
     def execute(self):
         pass
+    
 
     @staticmethod
-    def parse(action_str, objectsDic):
+    def parse(action_str: str, problem: Problem):
         action_words = action_str.split()
         
         action_name = action_words[0]
+        action_args =  action_words[1:]
         len_args = len(action_words) - 1
 
-        action_objects = [objectsDic[arg_str] for arg_str in action_words[1:len_args+1]]
+        problem_objects = problem.objects.values()
+        action_objects = []
+        for arg_str in action_args:
+            try:
+                action_objects.append(next(filter(lambda x: x.metadata["name"] == arg_str, problem_objects)))
+            except StopIteration:
+                raise Exception(f'Object {arg_str} not found')
+        
         action = globals()[Action.actionsDict[action_name]]
-
-        return action(*action_objects) 
+        return action(problem, *action_objects) 
 
 class make_interactable(Action):
     '''change robot from one and pose to another and do some actions in order to make an object visible'''
-    def __init__(self, scene, *obj_args) -> None:
+    def __init__(self, problem, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(scene, *obj_args)
+        super().__init__(problem, *obj_args)
     
     def __reach(self, obj):
-        relevant_poses = self.scene.controller.step(
+        relevant_poses = self.controller.step(
             action="GetInteractablePoses",
             objectId= obj.metadata["id"],
             standings=[True]
@@ -55,7 +66,7 @@ class make_interactable(Action):
         #In case the object can be made visible
         if len(relevant_poses) > 0:
             random_pose = random.choice(relevant_poses)
-            self.scene.controller.step(
+            self.controller.step(
                 action="TeleportFull",
                 **random_pose
             )
@@ -66,7 +77,7 @@ class make_interactable(Action):
     def execute(self):
         dest_obj = self.args[0]
         if self.__reach(dest_obj):
-            return self.scene.controller.step(action="Done")
+            return self.controller.last_event
         #In case the object is not reachable
         else:     
             #Find all parent receptacles
@@ -74,39 +85,39 @@ class make_interactable(Action):
             for p in parents:
                 #Go near them and try to open them
                 if p.metadata["openable"]:
-                    if self.__reach(p):
-                        self.scene.controller.step(
+                    no_open = True
+                    while self.__reach(p) and no_open:
+                        no_open = not(self.controller.step(
                             action="OpenObject",
                             objectId=p.metadata["id"],
                             openness=1,
                             forceAction=False
-                        )
+                        ).metadata["lastActionSuccess"])
                 #Check if now the required object is reachable
                 if self.__reach(dest_obj):
-                    return self.scene.controller.step(action="Done")
+                    return self.controller.last_event
             
             #Try to change pose
             for i in range(10):
                 if self.__reach(dest_obj):
-                    return self.scene.controller.step(action="Done")
-
+                    return self.controller.last_event
 
         raise Exception(f'object {dest_obj.metadata["name"]} is not reachable')
 
 class move_robot(Action):
     '''move robot towards an object'''
-    def __init__(self, scene, *obj_args) -> None:
+    def __init__(self, problem, *obj_args) -> None:
         assert len(obj_args) == 2
-        super().__init__(scene, obj_args)
+        super().__init__(problem, *obj_args)
     
     def execute(self):
-        pass
+        return self.controller.step(action="Done")
 
 class pickup(Action):
     '''pickup an object that is interactable to the robot'''
-    def __init__(self, scene, *obj_args) -> None:
+    def __init__(self, problem, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(scene, obj_args)
+        super().__init__(problem, *obj_args)
     
     def execute(self):
         obj = self.args[0]
@@ -114,7 +125,7 @@ class pickup(Action):
             raise Exception(f'object {obj.metadata["name"]} is not pickupable')
 
 
-        event = self.scene.controller.step(
+        event = self.controller.step(
             action="PickupObject",
             objectId=obj.metadata["id"],
             forceAction=False,
@@ -125,9 +136,9 @@ class pickup(Action):
     
 class place(Action):
     '''place an object onto a surface'''
-    def __init__(self, scene, *obj_args) -> None:
+    def __init__(self, problem, *obj_args) -> None:
         assert len(obj_args) == 2
-        super().__init__(scene, obj_args)
+        super().__init__(problem, *obj_args)
     
     def execute(self):
         to_place, surface = self.args[0], self.args[1]
@@ -139,79 +150,112 @@ class place(Action):
             
             # Exception(f'object {to_place.metadata["name"]} can\'t be placed on {surface.metadata["name"]}')
 
-        event = self.scene.controller.step(
+        event = self.controller.step(
             action="PutObject",
-            objectId=to_place.metadata["id"],
-            forceAction=False,
+            objectId=surface.metadata["id"],
+            forceAction=True,
             placeStationary=True
         )
         
         return event
 
-class break_object(Action):
+class slice_object(Action):
     '''move robot towards an object'''
-    def __init__(self, scene, *obj_args) -> None:
-        assert len(obj_args) == 1
-        super().__init__(scene, obj_args)
+    def __init__(self, problem, *obj_args) -> None:
+        assert len(obj_args) == 1 or len(obj_args) == 2
+        super().__init__(problem, *obj_args)
     
     def execute(self):
         obj = self.args[0]
-        if not obj.metadata["breakable"]:
-            raise Exception(f'object {obj.metadata["name"]} is not breakable')
+        if not obj.metadata["sliceable"]:
+            raise Exception(f'object {obj.metadata["name"]} can\'t be sliced')
 
-        event = self.scene.controller.step(
-            action="BreakObject",
+        event = self.controller.step(
+            action="SliceObject",
             objectId=obj.metadata["id"],
             forceAction=False
         )
+
+        if event.metadata["lastActionSuccess"]:
+            if obj.metadata["type"] == "egg":
+                name, new_id = obj.metadata["name"], obj.metadata["id"] + "|EggCracked_0"
+                obj_to_update = next(filter(lambda x: x.metadata["name"] == name, self.objects))
+                new_metadata = next(filter(lambda x: x["objectId"] == new_id, self.controller.last_event.metadata["objects"]))
+                obj_to_update.metadata.update(new_metadata)
+                obj_to_update.metadata["name"], obj.metadata["type"] = name, "egg"
 
         return event
 
 class cook(Action):
     '''cook an object'''
-    def __init__(self, scene, *obj_args) -> None:
+    def __init__(self, problem, *obj_args) -> None:
         assert len(obj_args) == 3
-        super().__init__(scene, obj_args)
+        super().__init__(problem, *obj_args)
     
     def execute(self):
         to_cook = self.args[0]
-        if not to_cook.metadata["isCookable"]:
+        if not to_cook.metadata["cookable"]:
             raise Exception(f'Object {to_cook.metadata["name"]} is not cookable')
 
         if not to_cook.metadata["isCooked"]:
-            event = self.scene.controller.step(
+            event = self.controller.step(
                 action="CookObject",
                 objectId=to_cook.metadata["id"],
                 forceAction=False)
         
-        return event
+        return self.controller.last_event
         
 class toggle_on(Action):
     '''turn on a device'''
-    def __init__(self, scene, *obj_args) -> None:
+    def __init__(self, problem, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(scene, obj_args)
+        super().__init__(problem, *obj_args)
     
     def execute(self):
         obj = self.args[0]
-        if not obj.metadata["isToggled"]:
-            event = self.scene.controller.step(
-            action="ToggleObjectOn",
-            objectId=obj.metadata["id"],
-            forceAction=False)
+
+        if obj.metadata["type"] == "stoveburner":
+            knobs = filter(lambda x:x.metadata["type"] == "stoveknob", self.scene.objects)
+            for knob in knobs:
+                knob_id = knob.metadata["id"]
+                self.controller.step(
+                action="ToggleObjectOn",
+                objectId=knob_id,
+                forceAction=False)
+                # stoveburner_toggled = next(filter(lambda x: x["objectId"] == obj.metadata["id"], self.controller.last_event.metadata["objects"]))["isToggled"]
+                 
+        else:
+            if not obj.metadata["isToggled"]:
+                self.controller.step(
+                action="ToggleObjectOn",
+                objectId=obj.metadata["id"],
+                forceAction=False)
+        
+        return self.controller.last_event
+
+class make_coffee(toggle_on):
+    '''turn on a device'''
+    def __init__(self, problem, *obj_args) -> None:
+        assert len(obj_args) == 2
+        super().__init__(problem, obj_args[0])
+    
+    def execute(self):
+        return super().execute()
 
 class toggle_off(Action):
     '''turn off a device'''
-    def __init__(self, scene, *obj_args) -> None:
+    def __init__(self, problem, *obj_args) -> None:
         assert len(obj_args) == 1
-        super().__init__(scene, obj_args)
+        super().__init__(problem, *obj_args)
     
     def execute(self):
         obj = self.args[0]
         if obj.metadata["isToggled"]:
-            event = self.scene.controller.step(
+            event = self.controller.step(
             action="ToggleObjectOff",
             objectId=obj.metadata["id"],
             forceAction=False)
+        
+        return self.controller.last_event
 
 
