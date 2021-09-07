@@ -27,8 +27,7 @@ class Object:
     def update(self, fields: dict):
         self.metadata.update(fields)
     
-    @classmethod
-    def fromScene(cls, objMetadata):
+    def fromScene(self, objMetadata):
         if objMetadata is not None:
             
             #Take the original metadata
@@ -36,7 +35,7 @@ class Object:
 
             #Update some fields for compatability 
             metadata.update({
-            'name': cls.typeNameHandler.generate_name(objMetadata["objectType"]),
+            'name': self.typeNameHandler.generate_name(objMetadata["objectType"]),
             'id': objMetadata["objectId"],
             'type': str.lower(objMetadata["objectType"]),
             'interactable': objMetadata["visible"], #assumed to be interactable when seen
@@ -51,7 +50,7 @@ class Object:
         else:
             metadata = dict()
 
-        return cls(metadata)
+        self.metadata = metadata
         
 
 class Scene:
@@ -72,7 +71,8 @@ class Scene:
         heldObject = None
         
         for obj in event.metadata["objects"]:
-            currObj = Object.fromScene(obj)
+            currObj = Object(fields=None)
+            currObj.fromScene(obj)
             listObj.append(currObj)
 
             if currObj.metadata["isPickedUp"]:

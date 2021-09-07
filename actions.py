@@ -181,8 +181,8 @@ class slice_object(Action):
                 name, new_id = obj.metadata["name"], obj.metadata["id"] + "|EggCracked_0"
                 obj_to_update = next(filter(lambda x: x.metadata["name"] == name, self.objects))
                 new_metadata = next(filter(lambda x: x["objectId"] == new_id, self.controller.last_event.metadata["objects"]))
-                obj_to_update.metadata.update(new_metadata)
-                obj_to_update.metadata["name"], obj.metadata["type"] = name, "egg"
+                obj_to_update.fromScene(new_metadata)
+                obj_to_update.metadata["name"], obj_to_update.metadata["type"], obj_to_update.metadata["id"] = name, "egg", new_id
 
         return event
 

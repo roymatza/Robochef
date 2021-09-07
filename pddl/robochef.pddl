@@ -25,7 +25,7 @@
     ;(at ?y ?x) ;true iff an object ?y is around an object ?x
     (near ?x) ;true iff the object is by the robot
     (interactable ?x) ;true iff the object can be interacted by the robot (visible, close, unobstructed)
-    (held ?x) ;true iff the robot holds ?x
+    (held ?x - pickupable) ;true iff the robot holds ?x
     ; (holding ?r) ;derived from 'is-held'
     (contains ?y - receptacle ?x) ;true iff ?x is contained in ?y
     (has-coffee ?y - receptacle) ;true iff ?x is filled with coffee
@@ -53,7 +53,6 @@
    (forall (?x) (not(contains ?y ?x)))
 )
 
-
 ;define actions here
 (:action move-robot
     :parameters (?src ?dest)
@@ -66,13 +65,13 @@
 
 (:action make-interactable
     :parameters (?x)
-    :precondition (and (near ?x) (not(interactable ?x)) )
+    :precondition (and (near ?x) (not(interactable ?x)))
     :effect (interactable ?x)
 )
 
 (:action pickup
     :parameters (?x - pickupable)
-    :precondition (and (interactable ?x) (forall (?z) (not (held ?z))))
+    :precondition (and (interactable ?x) (forall (?z - pickupable) (not (held ?z))))
     :effect (and (held ?x)
     (forall (?z - surface) (not (on ?z ?x))) 
     (forall (?z - receptacle) (not (contains ?z ?x))))
@@ -122,7 +121,7 @@
 
 (:action break-egg
     :parameters (?e - egg ?p - pan)
-    :precondition (and (interactable ?e) (contains ?p ?e) (not(cooked ?e)) (not (held ?e)) (not (egg-cracked ?e)))
+    :precondition (and (interactable ?e) (contains ?p ?e) (not(cooked ?e)) (not (held ?p)) (not (egg-cracked ?e)))
     :effect (egg-cracked ?e)
 )
 
