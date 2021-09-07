@@ -97,7 +97,7 @@
 )
 
 (:action make-coffee
-    :parameters (?m - mug ?cm - coffeemachine)
+    :parameters (?cm - coffeemachine ?m - mug)
     :precondition (and (interactable ?cm) (not(toggled ?cm)) (contains ?cm ?m))
     :effect (and (has-coffee ?m) (toggled ?cm))
 )
