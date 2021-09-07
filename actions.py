@@ -216,12 +216,15 @@ class toggle_on(Action):
 
         if obj.metadata["type"] == "stoveburner":
             knobs = filter(lambda x:x.metadata["type"] == "stoveknob", self.scene.objects)
+
             for knob in knobs:
                 knob_id = knob.metadata["id"]
-                self.controller.step(
-                action="ToggleObjectOn",
-                objectId=knob_id,
-                forceAction=False)
+                if obj.metadata["id"] in knob.metadata["controlledObjects"]:
+                    self.controller.step(
+                    action="ToggleObjectOn",
+                    objectId=knob_id,
+                    forceAction=False)
+                    break
                 # stoveburner_toggled = next(filter(lambda x: x["objectId"] == obj.metadata["id"], self.controller.last_event.metadata["objects"]))["isToggled"]
                  
         else:

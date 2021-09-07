@@ -22,6 +22,8 @@ controller = Controller(
     renderDepthImage=False,
     renderInstanceSegmentation=False,
 
+    branch="main"
+
     # camera properties
     # width=960,
     # height=540,

@@ -40,7 +40,7 @@ class Object:
             'type': str.lower(objMetadata["objectType"]),
             'interactable': objMetadata["visible"], #assumed to be interactable when seen
             'position': (objMetadata["position"]["x"], objMetadata["position"]["y"], objMetadata["position"]["z"]),
-            'temperature': Scene.temperatureNumericValue(objMetadata["ObjectTemperature"]),
+            'temperature': Scene.temperatureNumericValue(objMetadata["temperature"]),
             })
 
             #Clean some unwanted fields
