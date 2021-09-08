@@ -4,6 +4,7 @@ from scene_info import Object
 class PlanHandler:
     def __init__(self, pathToFile:str, problem, l_from, l_to) -> None:
         self.problem = problem
+        self.path = pathToFile
         try:
             with open(pathToFile) as plan:
                 self.lines = plan.readlines()[l_from: l_to] #Get relevant lines
@@ -27,6 +28,10 @@ class PlanHandler:
             return Action.parse(str.lower(' '.join(action)), self.problem)
         else:
             return None
+    
+    def print_plan(self):
+        with open(self.path) as plan:
+            print(plan.read())
 
 
 

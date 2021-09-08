@@ -1,4 +1,5 @@
 import os, shutil
+from time import sleep
 
 from ai2thor.server import Event
 from problem import Problem
@@ -22,13 +23,15 @@ controller = Controller(
     renderDepthImage=False,
     renderInstanceSegmentation=False,
 
-    branch="main"
+    branch="main",
 
-    # camera properties
-    # width=960,
-    # height=540,
-    # fieldOfView=100
+
+    #camera properties
+    width=1920,
+    height=1080,
+    fieldOfView=120
 )
+
 
 
 tasks = [ServeCoffee(),
@@ -61,7 +64,9 @@ for i in range(max_actions):
     action = plan_handler.parse_line()
     if action is not None:
         event = action.execute()
+
         Problem.PrintLastActionStatus(event)
+        sleep(0.5)
     else:
         problem.controller.step(action = "Done")
         problem.controller.step(action = "Done")
