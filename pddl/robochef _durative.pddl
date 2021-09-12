@@ -3,8 +3,7 @@
 (define (domain robochef)
 
 ;remove requirements that are not needed
-(:requirements :adl :strips :fluents :typing :derived-predicates)
-
+(:requirements :adl :strips :fluents :typing :durative-actions :derived-predicates)
 
 ;todo: enumerate types and their hierarchy here, e.g. car truck bus - vehicle
 (:types
@@ -24,6 +23,7 @@
     (near ?x) ;true iff the object is by the robot
     (interactable ?x) ;true iff the object can be interacted by the robot (visible, close, unobstructed)
     (held ?x - pickupable) ;true iff the robot holds ?x
+    (moving)
     ; (holding ?r) ;derived from 'is-held'
     (contains ?y - receptacle ?x) ;true iff ?x is contained in ?y
     (has-coffee ?y - receptacle) ;true iff ?x is filled with coffee
@@ -52,24 +52,35 @@
 )
 
 ;define actions here
-(:action move-robot
+(:durative-action move-robot
     :parameters (?src ?dest)
-    :precondition (and (near ?src) (not (near ?dest)))
-    :effect (and (near ?dest)
-    (not (near ?src))
-    (forall (?z) (not(interactable ?z))))
-    ;(forall (?z) (when (not (= ?z ?src)) (not(interactable ?z)))))
+    :duration (= ?duration 10)
+    :condition 
+    (and 
+        (at start (near ?src))
+        (at start (not (near ?dest)))
+        (over all (moving))
+        (over all (not(near ?src)))
+        (over all (not(near ?dest))))
+    :effect 
+    (and
+        (at start (moving))
+        (at start (not(near ?src)))
+        (forall (?z) (at end (not(interactable ?z))))
+        (at end (near ?dest))
+        (at end (not (near ?src)))
+        (at end (not (moving))))
 )
 
 (:action make-interactable
     :parameters (?x)
-    :precondition (and (near ?x) (not(interactable ?x)))
+    :precondition (and (near ?x) (not(interactable ?x)) (not(moving)))
     :effect (interactable ?x)
 )
 
 (:action pickup
     :parameters (?x - pickupable)
-    :precondition (and (interactable ?x) (forall (?z - pickupable) (not (held ?z))))
+    :precondition (and (interactable ?x) (forall (?z - pickupable) (not (held ?z))) (not(moving)))
     :effect (and (held ?x)
     (forall (?z - surface) (not (on ?z ?x))) 
     (forall (?z - receptacle) (not (contains ?z ?x))))
@@ -83,7 +94,7 @@
 
 (:action place
     :parameters (?x - pickupable ?y - surface)
-    :precondition (and (held ?x) (interactable ?y))
+    :precondition (and (held ?x) (interactable ?y) (not(moving)))
     :effect (and (not (held ?x)) (on ?y ?x))
 )
 
@@ -95,31 +106,31 @@
 
 (:action make-coffee
     :parameters (?cm - coffeemachine ?m - mug)
-    :precondition (and (interactable ?cm) (not(toggled ?cm)) (contains ?cm ?m))
+    :precondition (and (interactable ?cm) (not(toggled ?cm)) (contains ?cm ?m) (not(moving)))
     :effect (and (has-coffee ?m) (toggled ?cm))
 )
 
 (:action turn-on
     :parameters (?x - togglable)
-    :precondition (and (not(toggled ?x)) (interactable ?x))
+    :precondition (and (not(toggled ?x)) (interactable ?x) (not(moving)))
     :effect (toggled ?x)
 )
 
 (:action turn-off
     :parameters (?x - togglable)
-    :precondition (and (toggled ?x) (interactable ?x))
+    :precondition (and (toggled ?x) (interactable ?x) (not(moving)))
     :effect (not(toggled ?x))
 )
 
 (:action cook
     :parameters (?c - cookable ?p - cookware ?s - stoveburner)
-    :precondition (and (toggled ?s) (contains ?s ?p) (contains ?p ?c))
+    :precondition (and (toggled ?s) (contains ?s ?p) (contains ?p ?c) (not(moving)))
     :effect (cooked ?c)
 )
 
 (:action break-egg
     :parameters (?e - egg ?p - pan)
-    :precondition (and (interactable ?e) (contains ?p ?e) (not(cooked ?e)) (not (held ?p)) (not (egg-cracked ?e)))
+    :precondition (and (interactable ?e) (contains ?p ?e) (not(cooked ?e)) (not (held ?p)) (not (egg-cracked ?e)) (not(moving)))
     :effect (egg-cracked ?e)
 )
 

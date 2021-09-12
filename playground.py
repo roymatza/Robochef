@@ -66,11 +66,9 @@ for i in range(max_actions):
         event = action.execute()
 
         Problem.PrintLastActionStatus(event)
-        sleep(0.5)
+        #sleep(0.5)
     else:
-        problem.controller.step(action = "Done")
-        problem.controller.step(action = "Done")
-        problem.controller.step(action = "Done")
+        problem.controller.step('Pass')
         input("Mission finished! Press Enter to continue...")
         break
     

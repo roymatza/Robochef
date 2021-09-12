@@ -1,5 +1,5 @@
 
-(define (problem problem_701624) (:domain robochef)
+(define (problem problem_409621) (:domain robochef)
 
 (:objects
         mug1 - mug

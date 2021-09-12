@@ -40,6 +40,6 @@ class SceneHandler:
             output_filename = str(pfileDir + '/' + os.path.splitext(os.path.basename(pfilePath))[0])
             os.system(f'{plannerPath} -o {dfilePath} -f {pfilePath} -n 1 -out {output_filename}')
             os.remove(output_filename) #Removing a redundant file
-            return str(output_filename + "_1" +".SOL"), 12, -1
+            return str(output_filename + "_1" +".SOL"), 12, None
     
 
