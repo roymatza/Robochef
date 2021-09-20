@@ -1,18 +1,22 @@
 import os, shutil
 from time import sleep
+import random 
 
 from ai2thor.server import Event
 from problem import Problem
 from ai2thor.controller import Controller
-from tasks import ServeCoffee, ServeEgg
+from tasks import ClearDishes, SliceTomato, MakeToast, ServeCoffee, CookEgg, SetTable
 import scene_info as si
 from pddl2scene import PlanHandler
 from scene2pddl import SceneHandler
 
+kitchens = [f"FloorPlan{i}" for i in range(1, 31)]
+rand_scene = random.choice(kitchens)
+
 controller = Controller(
     agentMode="default",
     visibilityDistance = si.visibilityDistance,
-    scene="FloorPlan3",
+    scene=rand_scene,
 
     # step sizes
     gridSize=0.25,
@@ -27,20 +31,20 @@ controller = Controller(
 
 
     #camera properties
-    width=1920,
-    height=1080,
-    fieldOfView=120
+    width=768,
+    height=432,
+    fieldOfView=140
 )
 
+# tasks = [ServeCoffee(),
+#          ServeEgg()]
 
+tasks = [MakeToast(), CookEgg()]
 
-tasks = [ServeCoffee(),
-         ServeEgg()]
 domain_filename = "pddl/robochef.pddl"
 problems_path = "pddl/problems"
 planner_path = "planners/LPG-td-1.4/lpg-td"
 max_actions = 1000
-
 
 
 ##clean old data
@@ -64,13 +68,21 @@ for i in range(max_actions):
     action = plan_handler.parse_line()
     if action is not None:
         event = action.execute()
-
-        Problem.PrintLastActionStatus(event)
-        #sleep(0.5)
+        sleep(0.5)
+        if event is not None:
+            Problem.PrintLastActionStatus(event, action.args)
+            if not event.metadata["lastActionSuccess"]:
+                problem.controller.step('Pass')
+                input("Mission failed! Press Enter to continue...")
+                break
     else:
         problem.controller.step('Pass')
         input("Mission finished! Press Enter to continue...")
         break
+
+
+    
+    
     
 
 

@@ -1,6 +1,7 @@
 from ai2thor.controller import Controller
+import copy
 
-visibilityDistance = 1.5
+visibilityDistance = 1 #Visibility distance of agent (m)
 
 class TypeNameHandler:
     def __init__(self) -> None:
@@ -30,8 +31,8 @@ class Object:
     def fromScene(self, objMetadata):
         if objMetadata is not None:
             
-            #Take the original metadata
-            metadata = objMetadata
+            #Take a copy of the original metadata
+            metadata = copy.deepcopy(objMetadata)
 
             #Update some fields for compatability 
             metadata.update({

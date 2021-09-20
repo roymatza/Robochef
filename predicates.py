@@ -71,6 +71,15 @@ class cooked(Predicate):
         obj1 = self.args[0]
         return (obj1.metadata["isCooked"])
 
+class sliced(Predicate):
+    def __init__(self, *obj_args) -> None:
+        assert len(obj_args) == 1
+        super().__init__("sliced", *obj_args)
+    
+    def value(self):
+        obj_to_slice = self.args[0]
+        return (obj_to_slice.metadata["isSliced"])
+
 class has_coffee(Predicate):
     def __init__(self, *obj_args) -> None:
         assert len(obj_args) == 1

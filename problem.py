@@ -77,7 +77,7 @@ class Problem:
         
         #Adding other essential predicates
         for obj in self.objects.values():
-            self.predicates.append(near(obj))
+            #self.predicates.append(near(obj)) #CAUSES BUGS
             self.predicates.append(interactable(obj))
             self.predicates.append(held(obj))
     
@@ -90,8 +90,9 @@ class Problem:
         return data
     
     @staticmethod
-    def PrintLastActionStatus(event):
+    def PrintLastActionStatus(event, objects):
         print(event.metadata["lastAction"], end="--")
+        print([obj.metadata["name"] for obj in objects if len(obj.metadata) > 0], end="--")
         print("successful") if event.metadata["lastActionSuccess"] else print("unsuccesful")
         if event.metadata["errorMessage"]:
             print("Error: ", event.metadata["errorMessage"])
