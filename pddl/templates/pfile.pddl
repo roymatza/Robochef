@@ -8,6 +8,7 @@
 )
 
 (:init ;todo: put the initial state's facts and numeric values here
+    (near START_LOC)
     {% for init_pred in data.init%}
         ({{init_pred}})
     {% endfor %}

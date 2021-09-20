@@ -37,9 +37,13 @@ class SceneHandler:
         pfileDir = os.path.dirname(pfilePath)
         # os.chdir(dfileDir)
         if planner == "lpg-td":
-            output_filename = str(pfileDir + '/' + os.path.splitext(os.path.basename(pfilePath))[0])
-            os.system(f'{plannerPath} -o {dfilePath} -f {pfilePath} -n 1 -out {output_filename}')
-            os.remove(output_filename) #Removing a redundant file
-            return str(output_filename + "_1" +".SOL"), 12, -1
+            output_filename = str(pfileDir + '/' + 'plan_' + os.path.basename(pfilePath))
+            try:
+                os.system(f'{plannerPath} -o {dfilePath} -f {pfilePath} -quality -restarts 5')
+                #-out {output_filename}
+                #os.remove(output_filename) #Removing a redundant file
+            except FileNotFoundError:
+                raise Exception("Error in solving PDDL problem")
+            return str(output_filename + "_1" +".SOL"), 13, None
     
 

@@ -7,9 +7,12 @@ class PlanHandler:
         self.path = pathToFile
         try:
             with open(pathToFile) as plan:
-                self.lines = plan.readlines()[l_from: l_to] #Get relevant lines
+                if l_to is None:
+                    self.lines = plan.readlines()[l_from:] #Get relevant lines
+                else:
+                    self.lines = plan.readlines()[l_from: l_to]
         except FileNotFoundError:
-            raise Exception("Failed to create a problem file.")
+            raise Exception("Failed to find a problem file.")
 
         self.actions = []
 

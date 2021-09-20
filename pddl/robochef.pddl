@@ -8,16 +8,22 @@
 
 ;todo: enumerate types and their hierarchy here, e.g. car truck bus - vehicle
 (:types
-    ; location
     pickupable receptacle surface - object
-    cookable tableware cookware - pickupable
-    pan pot - cookware 
-    fork knife plate mug - tableware
-    mug plate togglable cookware - receptacle
-    potato egg - cookable
-    cookable - food
+    tableware cookware sliceable - pickupable
+    cookable vegetable - sliceable
+    lettuce tomato - vegetable
+    bowl spoon fork knife plate mug cup - tableware
+    generic_receptacle togglable - receptacle
+    bowl sink mug plate cookware - generic_receptacle
+    pan pot - cookware
+    cookable-in-cookware bread - cookable
+    potato egg - cookable-in-cookware
     table countertop stoveburner - surface
-    coffeemachine stoveburner - togglable
+    toaster coffeemachine stoveburner - togglable
+)
+
+(:constants
+    START_LOC ;a dummy constant for the robot starting point
 )
 
 
@@ -26,7 +32,7 @@
     (near ?x) ;true iff the object is by the robot
     (interactable ?x) ;true iff the object can be interacted by the robot (visible, close, unobstructed)
     (held ?x - pickupable) ;true iff the robot holds ?x
-    ; (holding ?r) ;derived from 'is-held'
+    (holding) ;derived from 'is-held'
     (contains ?y - receptacle ?x) ;true iff ?x is contained in ?y
     (has-coffee ?y - receptacle) ;true iff ?x is filled with coffee
     (empty ?y - receptacle) ;true iff the object is free
@@ -35,15 +41,16 @@
     (cooked ?x - cookable) ;true iff ?x is cooked
     (egg-cracked ?e - egg) ;true iff ?x is cracked
     (toggled ?x - togglable) ;true iff the obect is toggled on
+    (sliced ?x - sliceable) ;true iff the object is sliceable
 )
 
 ; (:functions
 ;     (heat ?f - food)    
 ; )
 
-;(:derived (holding) ;true iff the robot is holding something
-;    (exists (?x) (is-held ?x ?r))
-;)
+(:derived (holding) ;true iff the robot is holding something
+   (exists (?x - pickupable) (held ?x))
+)
 
 ;(:derived (occupied ?y - receptacle) ;true iff a receptacle is currently used
 ;    (exists (?x) (contains ?y ?x))
@@ -77,7 +84,7 @@
     (forall (?z - receptacle) (not (contains ?z ?x))))
 )
 
-(:action ungrab
+(:action drop
     :parameters (?x - pickupable)
     :precondition (held ?x)
     :effect (not (held ?x))
@@ -90,9 +97,21 @@
 )
 
 (:action put
-    :parameters (?x - pickupable ?y - receptacle)
-    :precondition (and (held ?x) (interactable ?y) (empty ?y))
+    :parameters (?x - pickupable ?y - generic_receptacle)
+    :precondition (and (held ?x) (interactable ?y))
     :effect (and (not (held ?x)) (contains ?y ?x))
+)
+
+(:action put-in-cofeemachine
+    :parameters (?m - mug ?cm - coffeemachine)
+    :precondition (and (held ?m) (empty ?m) (interactable ?cm))
+    :effect (and (not (held ?m)) (contains ?cm ?m))
+)
+
+(:action put-in-toaster
+    :parameters (?b - bread ?t - toaster)
+    :precondition (and (held ?b) (sliced ?b) (interactable ?t))
+    :effect (and (not (held ?b)) (contains ?t ?b))
 )
 
 (:action make-coffee
@@ -114,9 +133,15 @@
 )
 
 (:action cook
-    :parameters (?c - cookable ?p - cookware ?s - stoveburner)
-    :precondition (and (toggled ?s) (contains ?s ?p) (contains ?p ?c))
+    :parameters (?c - cookable-in-cookware ?p - cookware ?s - stoveburner)
+    :precondition (and (toggled ?s) (on ?s ?p) (contains ?p ?c))
     :effect (cooked ?c)
+)
+
+(:action toast
+    :parameters (?b - bread ?t - toaster)
+    :precondition (and (toggled ?t) (contains ?t ?b))
+    :effect (cooked ?b)
 )
 
 (:action break-egg
@@ -125,10 +150,16 @@
     :effect (egg-cracked ?e)
 )
 
-; (:action cook-egg
-;     :parameters (?e - egg ?p - cookware)
-;     :precondition (and (interactable ?p) (held ?e) (egg-cracked ?e) (empty ?p))
-;     :effect (and (cooked ?e) (not (held ?e)) (contains ?p ?e))
-; )
+(:action slice-vegetable
+    :parameters (?x - vegetable ?b -bowl)
+    :precondition (and (not (sliced ?x)) (interactable ?x) (on ?b ?x))
+    :effect (sliced ?x)
+)
+
+(:action slice-bread
+    :parameters (?b - bread)
+    :precondition (and (not (sliced ?b)) (interactable ?b) (not(held ?b)))
+    :effect (sliced ?b)
+)
 
 )
