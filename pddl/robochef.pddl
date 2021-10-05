@@ -28,7 +28,6 @@
 
 
 (:predicates ;todo: define predicates here
-    ;(at ?y ?x) ;true iff an object ?y is around an object ?x
     (near ?x) ;true iff the object is by the robot
     (interactable ?x) ;true iff the object can be interacted by the robot (visible, close, unobstructed)
     (held ?x - pickupable) ;true iff the robot holds ?x
@@ -36,7 +35,6 @@
     (contains ?y - receptacle ?x) ;true iff ?x is contained in ?y
     (has-coffee ?y - receptacle) ;true iff ?x is filled with coffee
     (empty ?y - receptacle) ;true iff the object is free
-    ; (occupied ?y - receptacle) ;dervied from 'contains'
     (on ?y - surface ?x - pickupable) ;true iff ?x is on top of ?y
     (cooked ?x - cookable) ;true iff ?x is cooked
     (egg-cracked ?e - egg) ;true iff ?x is cracked
@@ -44,17 +42,9 @@
     (sliced ?x - sliceable) ;true iff the object is sliceable
 )
 
-; (:functions
-;     (heat ?f - food)    
-; )
-
 (:derived (holding) ;true iff the robot is holding something
    (exists (?x - pickupable) (held ?x))
 )
-
-;(:derived (occupied ?y - receptacle) ;true iff a receptacle is currently used
-;    (exists (?x) (contains ?y ?x))
-;)
 
 (:derived (empty ?y - receptacle) ;true iff a receptacle is currently used
    (forall (?x) (not(contains ?y ?x)))
@@ -152,14 +142,14 @@
 
 (:action slice-vegetable
     :parameters (?x - vegetable ?b -bowl)
-    :precondition (and (not (sliced ?x)) (interactable ?x) (on ?b ?x))
+    :precondition (and (not (sliced ?x)) (interactable ?x) (contains ?b ?x))
     :effect (sliced ?x)
 )
 
 (:action slice-bread
-    :parameters (?b - bread)
-    :precondition (and (not (sliced ?b)) (interactable ?b) (not(held ?b)))
-    :effect (sliced ?b)
+    :parameters (?x - bread)
+    :precondition (and (not (sliced ?x)) (interactable ?x) (not(held ?x)))
+    :effect (sliced ?x)
 )
 
 )
