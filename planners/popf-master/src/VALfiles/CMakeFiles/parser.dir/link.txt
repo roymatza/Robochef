@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/parser.dir/parse.o  -o parser parsing/libParsePDDL.a 
