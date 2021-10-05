@@ -1,5 +1,5 @@
 
-(define (problem problem_407658) (:domain robochef)
+(define (problem problem_630526) (:domain robochef)
 
 (:objects
         bread1 - bread
@@ -13,8 +13,6 @@
 
 (:init ;todo: put the initial state's facts and numeric values here
     (near START_LOC)
-        (interactable pan1)
-        (interactable stoveburner1)
 )
 
 (:goal ;todo: put the goal condition here
