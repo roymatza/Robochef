@@ -2,7 +2,6 @@ import os, shutil
 from time import sleep
 import random 
 
-from ai2thor.server import Event
 from problem import Problem
 from ai2thor.controller import Controller
 from tasks import ClearDishes, SliceTomato, MakeToast, ServeCoffee, CookEgg, SetTable
