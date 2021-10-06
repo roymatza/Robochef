@@ -1,6 +1,6 @@
-#RoboChef -  Planning in a Kitchen Environment#
+# RoboChef -  Planning in a Kitchen Environment
 
-##Introduction##
+## Introduction
 Model-based planning is a prominent aspect of artificial intelligence, where robots are taking place in more and more daily jobs which require abstract reasoning to make the agent work logically and efficiently as much as possible. Therefore, agent/s environments usually utilize task and motion planning prior to executing a set of actions, depending on the world and the constraints that are present. One possible example of a daily job environment is the kitchen. One has to plan his set of actions in order to accomplish a task (cooking, washing dishes, heating, setting a tabe, etc.).
 
 **RoboChef** combines techniques AI planning enigine and the [*AI2Thor*](https://ai2thor.allenai.org/)  (© The Allen Institute for AI) simulation environment with the aim of simply and efficiently execute a task in the kitchen by planning in advance. The robot's main task is to move around different kinds of foods and tools, interact with them in the manner of cooking, toggling, cleaning etc., and possiblly serve them.
@@ -9,12 +9,12 @@ The code is mainly written in Python, and contains several parts in PDDL. This p
 ![](./report/media/demo.gif)
 
 
-##How to use RoboChef##
+## How to use RoboChef
 
 First, a** Colab notebook** has been written in order to reproduce a useful demonstartion of RoboChef.
 the notebook, which can be run on any machine that's connected to the web, can be found [here](https://colab.research.google.com/drive/1ho-44hpmA01WkJTlxAuwVJ_RvlaczfwW?usp=sharing). If you'd like to modify or test different use cases in the code, please follow the next sections.
 
-###Requirements###
+### Requirements
 
 | Component  | Requirement  | 
 |---|---|
@@ -25,7 +25,7 @@ the notebook, which can be run on any machine that's connected to the web, can b
 | pip Version | 19.3+ |
 
 
-###Installation###
+### Installation
 
 Simply install the following packages:
 
@@ -45,7 +45,7 @@ Finally, clone the project folder to a local directory:
 
 	git clone https://github.com/roymatza/Robochef
 
-###Initilization###
+### Initilization
 
 **Initializing AI2Thor Controller**
 
@@ -131,6 +131,7 @@ Here is an example snippet for execution of all the action in a plan, until the 
 			
 
 **(Optional) Create your own tasks**
+
 It is possible to extend *Task* class to support additional tasks to perform. Task definition in RoboChef is similar to that of a PDDL problem. It can by done adding code to *tasks.py* file in the following protocol:
 
 	class NewTask(Task):
@@ -147,7 +148,7 @@ It is possible to extend *Task* class to support additional tasks to perform. Ta
 It is recommended to use *playground.py* for a start when modifying the code, otherwise simply create a python file in the the project folder and write your own code. 
 			
 
-##References & Useful links##
+## References & Useful links
 
 [AI2THOR Homepage](https://ai2thor.allenai.org/) 
 
