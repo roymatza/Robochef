@@ -22,6 +22,7 @@ the notebook, which can be run on any machine that's connected to the web, can b
 |   Graphics Card|  	DX9 (shader model 3.0) or DX11 with feature level 9.3 capabilities. | 
 | CPU | 	SSE2 instruction set support |
 |Pyhton Version | 3.5+ |
+| pip Version | 19.3+ |
 
 
 ###Installation###
