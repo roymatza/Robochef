@@ -1,5 +1,7 @@
 # RoboChef -  Planning in a Kitchen Environment
 
+PDDL planinng for 'AI2Thor' kitchen environments.
+
 ## Introduction
 Model-based planning is a prominent aspect of artificial intelligence, where robots are taking place in more and more daily jobs which require abstract reasoning to make the agent work logically and efficiently as much as possible. Therefore, agent/s environments usually utilize task and motion planning prior to executing a set of actions, depending on the world and the constraints that are present. One possible example of a daily job environment is the kitchen. One has to plan his set of actions in order to accomplish a task (cooking, washing dishes, heating, setting a tabe, etc.).
 
