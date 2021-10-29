@@ -1,5 +1,4 @@
-# RoboChef -  Planning in a Kitchen Environment
-
+# RoboChef
 PDDL planinng for 'AI2Thor' kitchen environments.
 
 ## Introduction
