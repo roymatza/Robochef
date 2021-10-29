@@ -12,7 +12,7 @@ The code is mainly written in Python, and contains several parts in PDDL. This p
 
 ## How to use RoboChef
 
-First, a** Colab notebook** has been written in order to reproduce a useful demonstartion of RoboChef.
+First, a **Colab notebook** has been written in order to reproduce a useful demonstartion of RoboChef.
 the notebook, which can be run on any machine that's connected to the web, can be found [here](https://colab.research.google.com/drive/1ho-44hpmA01WkJTlxAuwVJ_RvlaczfwW?usp=sharing). If you'd like to modify or test different use cases in the code, please follow the next sections.
 
 ### Requirements
